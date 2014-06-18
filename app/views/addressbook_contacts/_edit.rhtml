@@ -1,0 +1,14 @@
+<td valign="top" align="center">
+<div id="addressbook_contact_offset_<%= @addressbook_contact.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="5">
+<% form_for :addressbook_contact, :url => {:action => 'edit', :id => @addressbook_contact.id}, :html => { :multipart => true } do |f| -%>
+  <%= error_messages_for 'addressbook_contact' %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+  <%= submit_tag print_words('save').capitalize %>
+<% end -%>
+</td>
+<td valign="top" align="center">
+<%= print_words('cancel').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @addressbook_contact.id} %> 
+</td>

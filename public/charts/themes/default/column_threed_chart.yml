@@ -1,0 +1,35 @@
+<%= chart :column_threed %>
+  <%=comp :chart_value %>
+    color:    000000
+    position: over
+    size: 18
+   
+  <%=comp :axis_category %>
+    orientation: horizontal
+    
+  <%=comp :chart_border %>
+    left_thickness:   1
+    bottom_thickness: 1
+    
+  <%=comp :chart_grid_h %>
+    thickness: 3
+  
+  <%=comp :chart_grid_v %>
+    thickness: 1   
+    
+  <%=comp :chart_rect %>
+    x:              240
+    y:              -30 
+    height:         350
+    width:          700      
+    positive_alpha: 0
+    negative_alpha: 0      
+     
+  <%=component :series_gap %>
+    bar_gap: 60
+
+  <%=component :chart_value %>
+    position: over
+    color:    000000
+    size:     16
+    alpha:    100

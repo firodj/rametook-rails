@@ -1,0 +1,20 @@
+<h1>
+	<%= image_tag("/images/icon_role.png", {:alt => "", :style => "float:none;"}) %> <%=h print_words('login').capitalize %>
+</h1>
+
+<% form_tag do -%>
+<p>
+	<label for="login"><%=h print_words('username').capitalize %></label><%= text_field_tag 'login' %>
+</p>
+
+<p>
+	<label for="password"><%=h print_words('password').capitalize %></label><%= password_field_tag 'password' %>
+</p>
+
+<p>
+	<label for="remember_me"><%=h print_words('remember me').capitalize %></label> <%= check_box_tag 'remember_me' %>
+</p>
+
+<br />
+<%= submit_tag print_words('login').capitalize %>
+<% end -%>

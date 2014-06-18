@@ -1,0 +1,62 @@
+<!--[form:modem_device]-->
+
+<p>
+	<label><%=h print_words('device').capitalize_words %></label><%= text_field "modem_device", "device", 'class'=>"input-text" %>
+	<%= check_box "modem_device", "active", 'class'=>"input-text" %> 
+	<%=h print_words('active').capitalize_words %>
+</p>
+
+<p>
+	<label><%=h print_words('baudrate').capitalize_words %></label><%= text_field "modem_device", "baudrate", 'size' => 11, 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('databits').capitalize_words %></label><%= text_field "modem_device", "databits", 'size' => 11, 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('stopbits').capitalize_words %></label><%= text_field "modem_device", "stopbits", 'size' => 11, 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('parity').capitalize_words %></label><%= select "modem_device", "parity", @modem_type_parities %>
+</p>
+
+<p>
+	<label><%=h print_words('capabilities').capitalize_words %></label><%= text_field "modem_device", "capabilities", 'size' => 20, 'class'=>"input-text" %>
+</p>
+
+
+<% if !@modem_device.new_record? then %>
+<p>
+<label><%= print_words('last refresh').capitalize_words %></label><span class="showvalue"><%= @modem_device.last_refresh %></span>
+</p>
+
+<p>
+<label><%= print_words('identifier').capitalize_words %></label><span class="showvalue"><div style="white-space: pre"><%= @modem_device.identifier.gsub(';',"\n") if @modem_device.identifier %></div></span>
+</p>
+
+<p>
+<label><%= print_words('signal quality').capitalize_words %></label><span class="showvalue"><%= @modem_device.signal_quality %></span>
+</p>
+
+<p>
+<label><%= print_words('modem type').capitalize_words %></label><span class="showvalue"><%= @modem_device.modem_type.display_name rescue '' %></span>
+</p>
+<% end %>
+
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror
+<p>
+	<label>Image</label>
+	<%= file_field 'modem_device', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@modem_device.id.to_s)
+	    # replace .id with .image or your images column name 
+	%><br />
+	<input type="checkbox" name="updateimage" value="1" /><%=h print_words('update').capitalize %><br />
+	<% end -%>
+</p>
+-->
+<!--[eoform:modem_device]-->
+

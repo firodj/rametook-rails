@@ -1,0 +1,21 @@
+<td class="offset" id="sms_reply_offset_<%= @sms_reply.id %>"><%=h offset %></td>
+<td><%=h @sms_reply.function %></td>
+<td><%=h @sms_reply.action %></td>
+<td><%=h @sms_reply.message %></td>
+<td><%=h @sms_reply.tags %></td>
+<td><%=h @sms_reply.help_info %></td>
+<td><%=h @sms_reply.active %></td>
+<td class="offset_right">
+<%= link_to_remote(image_tag("/images/icon-show.png"), 
+  { :url => sms_reply_url(@sms_reply), :method => :get }, 
+  :title => print_words('show').capitalize) %>
+<%= link_to_remote(image_tag("/images/icon-detail.gif"), 
+  { :url => edit_sms_reply_url(@sms_reply), :method => :get }, # :page => params[:page]
+  :title => print_words('edit').capitalize) if granted_to(:update, @sms_reply)
+%>
+<%= link_to_remote(image_tag("/images/icon-delete.gif"), 
+  { :url => sms_reply_url(@sms_reply), :method => :delete,
+  :confirm => print_words('are you sure').capitalize }, 
+  :title => print_words('delete').capitalize) if granted_to(:destroy, @sms_reply) 
+%>
+</td>

@@ -1,0 +1,120 @@
+Thu Sep  4 12:14:00 2008  firo <firodj@gmail.com>
+  * generators/toombila_scaffold/templates/model.rb:
+    image upload handling
+  * generators/toombila_scaffold/templates/controller.rb:
+    add render_update_with_item helper to render item_update.rjs
+  * generators/toombila_scaffold/templates/ajax_item_update.rjs:
+    adding this file to use rjs file
+  * generators/toombila_scaffold/toombila_scaffold_generator.rb:
+    cleaning code for Generator::Create and Generator::Destroy
+    when using reload_model. also weveral Views
+    Also creating Resources and Routes, for RESTful
+    
+Fri Jul 11 07:57:00 2008  firo <email>
+  * generators/toombila_scaffold/templates/controller.rb:
+    break out update_attributes to save in edit method, and 
+    changing uploadfile in new and edit (commented codes)
+  * generators/toombila_scaffold/templates/model.rb:
+    allow find_by_id useng array of ids
+  * generators/toombila_scaffold/templates/insert_from_scaffolding.rb:
+    changin uploadfile (commented scripts)
+
+Sun May 29 18:40:00 2008  firo <email>
+  * generators/toombila_scaffold/templates/controller.rb:
+    fix conditions array in search filter, granted_to
+  * generators/toombila_scaffold/templates/model.rb:
+    add validates_inclusion_of for :boolean column's type
+
+Sun May 29 18:10:00 2008  wawan <email>
+  * generators/toombila_scaffold/templates/view_edit.rhtml,view_new.rhtml(+error):
+    'add' and 'edit' button changes to 'save'
+
+Sun May 25 10:26:00 2008  firo <email>
+  * generators/toombila_scaffold/templates/controller.rb:
+    Class variable to constant ParamToField
+    
+Wed Apr 30 10:09:00 2008  firo <email>
+  * generators/toombila_scaffold/templates/controller.rb:
+    non sessions for filter. additional function in controller/application.rb
+    also changes in view_list.rhtml and view_filter.rhtml
+
+Tue Mar 25 13:01:38 2008  firo  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    removing rescue (rjs) per action. 
+    rescue was removed to Toombila::ActionControllerRescue.
+    removing print_report in commented.
+
+Thu Mar 13 12:45:59 2008  niwatori <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    fixing upload image (in commented)
+
+Tue Mar 04 22:12:25 2008  firo  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    security post, xhr, and also authenticated action.
+    adding rjs rescue response when exception. 
+    using granted_to :delete instead :destroy
+
+Tue Mar 04 02:49:39 2008  niwatori  <email>
+
+  * generators/toombila_scaffold/toombila_scaffold_generator.rb:
+    date_select become calendar_for
+
+Tue Mar 04 00:44:17 2008  firo  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    enabling checking granted to by item.can_destroyed?, also using permit?.
+
+Mon Mar 03 17:37:24 2008  firo  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    using set/get search filters (application.rb) for getting filters in session.
+    enabling before filter login_required.
+    
+Sun Jan 27 02:07:35 2008  jerbee  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    humanize model name for print_word in flash[:notice].
+    red highlight when item can't delete. changing checking condition,
+    not using when/case in granted to. commenting print_report
+  
+  * generators/toombila_scaffold/toombila_scaffold_generator.rb:
+    refine print_words for using downcase in lable (after human name)
+
+Thu Jan 10 00:27:39 2008  admin  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    adding local variable offset when render partial, and also
+    small fixes.
+
+Mon Dec 17 00:27:37 2007  admin <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    search text using array list of fields instead of string joined fields
+    
+Sun Dec 16 19:22:24 2007  admin <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:  
+    adding howto update image/files (in commented)
+
+Sat Dec 15 22:46:40 2007  admin  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    add print_report, add granted_to. filtering using session
+
+  * generators/toombila_scaffold/toombila_scaffold_generator.rb:
+    refine print_words for using human name in label.
+    creating reload_model method in generator destroy (just nothing to do)
+
+Fri Dec 14 07:41:55 2007  admin  <email>
+
+  * generators/toombila_scaffold/templates/controller.rb:
+    rename action name using underscore, adding search filter
+
+  * generators/toombila_scaffold/toombila_scaffold_generator.rb:
+    creating ToombilaSchemaDumper, adding and call reload_model after creating template
+    for model, and move migration to the last. list of scaffold_views in method.
+    
+  

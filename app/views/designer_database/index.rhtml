@@ -1,0 +1,24 @@
+<h1 class="title">Designer Database</h1>
+<table>
+<thead>
+<tr>
+<th>No</th><th>Delete</th><th>Table Name</th><th>Columns</th>
+</tr>
+</thead>
+<tbody>
+<% n = 0
+@designer_tables.each do |table_name| 
+n += 1
+%>
+<tr class="<%= cycle('odd','even') %>"><td><%= n %></td>
+<td><%= link_to image_tag("icon_close.png"), {:action => 'delete_table', :value => table_name}, :confirm => "Are you sure to delete '#{table_name}' ?", :title => 'Drop' %>
+</td>
+<td><%= inplace_editor table_name, table_name, {:action => 'edit_table'}, n %>
+</td><td><%= link_to image_tag("icon_edition.png"), {:action => 'list', :table => table_name}, :title => 'List Columns' %></td>
+</tr>
+<% end %>
+<tr><td>*</td><td></td><td>
+<%= inplace_editor image_tag("icon_cms.png") + ' Create', '', {:action => 'new_table'}, 0 %>
+</td><td></td></tr>
+</tbody>
+</table>

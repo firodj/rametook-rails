@@ -1,0 +1,8 @@
+<td class="offset" id="department_offset_<%= @department.id %>"><%=h offset %></td>
+<td><%= @department.name %></td>
+<td><%= @department.parent.display_name rescue '' %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @department.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @department.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @department) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @department.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @department) %>
+</td>

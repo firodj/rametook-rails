@@ -1,0 +1,24 @@
+<%= content_tag :h3, 'SMS report' %>
+
+<% form_tag :action => 'show' do %>
+
+<% content_tag :p do %>
+<%= content_tag :label, 'date' %>
+<%= text_field_tag 'date', params[:date], {:size=> '10'} %>
+<%= calendar_for 'date' %>
+<% end %>
+  
+<% content_tag :p do %>
+<%= content_tag :label, 'summary by' %>
+<%= select_tag 'summary_by', 
+  options_for_select([ 
+    ['daily count', 'daily_count'],
+    ['monthly count', 'monthly_count'],
+    ['daily log', 'daily_log'],
+    ['monthly log', 'monthly_log']
+  ]) %>
+<% end %>
+  
+<%= content_tag :p, submit_tag('show') %>
+  
+<% end %>

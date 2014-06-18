@@ -1,0 +1,46 @@
+<td valign="top" align="center">
+<div id="bird_offset_<%= @bird.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="8" class="show">
+<p>
+<label><%= print_words('name').capitalize_words %></label>
+<span class="showvalue"><%=h @bird.name %>
+</span>
+</p>
+<p>
+<label><%= print_words('description').capitalize_words %></label>
+<span class="showvalue"><div style="white-space: pre;"><%=h @bird.description %></div>
+</span>
+</p>
+<p>
+<label><%= print_words('die at').capitalize_words %></label>
+<span class="showvalue"><%=h @bird.die_at %>
+</span>
+</p>
+<p>
+<label><%= print_words('created at').capitalize_words %></label>
+<span class="showvalue"><%=h @bird.created_at %>
+</span>
+</p>
+<p>
+<label><%= print_words('fine').capitalize_words %></label>
+<span class="showvalue"><%=h @bird.fine %>
+</span>
+</p>
+<p>
+<label><%= print_words('sleep at').capitalize_words %></label>
+<span class="showvalue"><%=h @bird.sleep_at %>
+</span>
+</p>
+<p>
+<label><%= print_words('image').capitalize_words %></label>
+<span class="showvalue"><%= image_tag(@bird.image) if @bird.image %>
+</span>
+</p>
+<p>
+<label><%= print_words('user').capitalize_words %></label><span class="showvalue"><%=h @bird.user.display_name rescue '' %></span>
+</p>
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @bird.id} %> 
+</td>

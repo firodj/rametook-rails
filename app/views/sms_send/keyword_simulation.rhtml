@@ -1,0 +1,32 @@
+<h1>
+	<%= image_tag("/images/icon_sms_keyword.png", :style => "float:none;") %> 
+	<%=h (print_words('reply simulation')).capitalize_words %>
+</h1>
+
+
+<div style="padding:10px; width:420px;float:none; border-left:1px solid #ccc;">
+<p><label><%=h (print_words('reply')+' '+print_words('to')).capitalize_words %>:</label><br />
+<div id="reply_number" style="border: 1px solid #ccc; min-height: 2em"></div>
+</p>
+<p><label><%=h (print_words('reply')+' '+print_words('message')).capitalize_words %>:</label><br />
+<div id="reply_message" style="border: 1px solid #ccc; min-height: 2em"></div>
+</p>
+<p><label><%=h (print_words('process')+' '+print_words('log')).capitalize_words %>:</label><br />
+<div id="process_log" style="background-color: #eee; min-height: 2em"></div>
+</p>
+</div>
+
+<div id="asoy" style="padding:10px; width:330px; float:none;">
+<% form_remote_for :sms_keyword_then_reply, :url => {:action => 'smstry'} do |f| -%>
+  <p><label><%=h print_words('from').capitalize %>:</label></p>
+  <%= text_field "sms_keyword_then_reply", "number", 'size'=>18, 'value'=>params[:number] %><br />
+  <label><%=h print_words('message').capitalize_words %></label><br />
+	<%= text_area "sms_keyword_then_reply", "message", 'rows'=>10, 'maxlength'=>'160' %><br />
+	<% restrict_to 'affect_trysms | superadmin' do -%>
+	<label><%=h print_words('affected').capitalize %></label>
+  <%= check_box "sms_keyword_then_reply", "affected" %> <%=h print_words('yes').capitalize_words %><br />
+  <% end -%>
+  <div class="buttons"><%= submit_tag print_words('submit').capitalize %></div>
+<% end %>
+</div>
+

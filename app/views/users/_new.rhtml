@@ -1,0 +1,14 @@
+<div id="new_form" style="padding:10px; border:1px solid #ddd;">
+<% form_for :user , :url => {:action => 'new'}, :html => { :multipart => true } do |f| -%>
+<h3><%= print_words('add').capitalize_words %></h3>
+<div style="float:right;"><%= link_to_remote image_tag('icon_close.png')+' '+print_words('cancel').capitalize_words, :url => {:action => 'new_cancel'} %>
+</div>
+
+	<%= error_messages_for 'user' %> 
+  	<%= render :partial => 'form', :locals => {:f => f} %>
+	<p>
+		<input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+	</p>	
+  	<%= submit_tag print_words('add').capitalize %>
+<% end %>
+</div>

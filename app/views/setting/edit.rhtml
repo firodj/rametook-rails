@@ -1,0 +1,10 @@
+<h1>
+	<%= image_tag("/images/icon_configuration.png", {:alt => "", :style => "float:none;"}) %> <%=h print_words('configuration').capitalize %>
+</h1>
+
+<% form_for :setting, :url => { :action => "update" } do |f| -%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag print_words('save').capitalize %>
+<% end -%>
+
+<br />

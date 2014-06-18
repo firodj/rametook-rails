@@ -1,0 +1,30 @@
+<td valign="top" align="center">
+<div id="sms_inbox_offset_<%= @sms_inbox.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="3" class="show">
+
+<% 
+contact = AddressbookPhone.search_by_number( @sms_inbox.number, :user_id => current_user.id, :country_code => '62' ) 
+number_display = contact.empty? ? @sms_inbox.number : "<strong>#{contact.first.addressbook_contact.display_name}</strong><br />#{@sms_inbox.number}"
+%>
+
+<p>
+<label><%= print_words('sender').capitalize_words %></label><span class="showvalue"><%= number_display %></span>
+</p>
+<p>
+<label><%= print_words('sent time').capitalize_words %></label><span class="showvalue"><%= @sms_inbox.sent_time.strfindo_by_today rescue '' %></span>
+</p>
+
+<p>
+<label><%= print_words('received time').capitalize_words %></label><span class="showvalue"><%= @sms_inbox.received_time.strfindo_by_today rescue '' %></span>
+</p>
+
+<p>
+<label><%= print_words('message').capitalize_words %></label><span class="showvalue"><div style="white-space: pre;"><%= @sms_inbox.message.word_wrap(40) %></div></span>
+</p>
+
+</td>
+
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @sms_inbox.id} %> 
+</td>

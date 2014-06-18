@@ -1,0 +1,15 @@
+<div id="new_form" style="padding:10px; border:1px solid #ddd;">
+<% form_for :sms_outbox , :url => {:action => 'new'}, :html => { :multipart => false } do |f| -%>
+<%= image_tag("/images/icon_sms_send.png", :style => "float:none;") %> 
+<h3><%= print_words('send SMS').capitalize_words %></h3>
+<div style="float:right;"><%= link_to_remote image_tag('icon_close.png')+' '+print_words('cancel').capitalize_words, :url => {:action => 'new_cancel'} %>
+</div>
+
+	<%= error_messages_for 'sms_outbox' %> 
+  	<%= render :partial => 'form', :locals => {:f => f} %>
+	<p>
+		<input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+	</p>	
+  	<%= submit_tag print_words('send').capitalize %>
+<% end %>
+</div>

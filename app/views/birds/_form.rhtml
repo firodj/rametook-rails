@@ -1,0 +1,60 @@
+<!--[form:bird]-->
+<p>
+	<label><%=h print_words('name').capitalize_words %></label>
+	<%= f.text_field "name", {:class=>"input-text", :size=>255} %>
+</p>
+
+<p>
+	<label><%=h print_words('description').capitalize_words %></label>
+	<%= f.text_area "description", {:class=>"input-text-area"} %>
+</p>
+
+<p>
+	<label><%=h print_words('die at').capitalize_words %></label>
+	<%= f.text_field "die_at", {:size=>10} %><%= calendar_for('bird_die_at') %>
+</p>
+
+<p>
+	<label><%=h print_words('created at').capitalize_words %></label>
+	<%= f.datetime_select "created_at" %>
+</p>
+
+<p>
+	<label><%=h print_words('fine').capitalize_words %></label>
+	<%= f.check_box "fine", {:class=>"input-checkbox"} %>
+</p>
+
+<p>
+	<label><%=h print_words('sleep at').capitalize_words %></label>
+	<%= f.time_select "sleep_at" %>
+</p>
+
+<!--
+<% if false then %>
+#<p>
+#	<label><%=h print_words('image').capitalize_words %></label>
+#	<%= f.text_field "image", {:class=>"input-text", :size=>255} %>
+#</p>
+<% end %>
+-->
+
+<p>
+  <label><%= print_words('user').capitalize_words %></label>
+  <%= f.select 'user_id', @users %>
+</p>
+
+
+<% 
+# Sample form for file/image upload, DB field name: image
+if @bird.has_attribute?(:image) then %>
+<p>
+	<label><%=h print_words('image').capitalize_words %></label>
+	<%= f.file_field 'image' %><br />
+<% if not @bird.new_record? and @bird.image then -%>
+  <%= image_tag(@bird.image.to_s) %><br />
+  <%= f.check_box 'remove_image' %> <%=h print_words('remove image').capitalize %><br />
+<% end -%>
+</p>
+<% end %>
+<!--[eoform:bird]-->
+

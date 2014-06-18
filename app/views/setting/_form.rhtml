@@ -1,0 +1,22 @@
+<%= error_messages_for 'setting' %>
+<!--[form:setting]-->
+<% current_plugins = nil %>
+<% 
+for setting in @settings %>
+<% 
+  if current_plugins != setting.plugins then %>
+<% 
+    unless current_plugins.nil? then %><br /><% end %>
+  <h2><%=h setting.plugins.capitalize_words %></h2>
+<% 
+  end %>
+  <p>
+    <label><%=h setting.name.capitalize_words %></label>
+    <input name="settings[<%= setting.id %>]" size="30" type="text" value="<%=h setting.value %>" /><br />
+    <span style="color:#888;"><%=h setting.description %></span>
+  </p>
+<% current_plugins = setting.plugins %>
+<% 
+end %>
+<!--[eoform:setting]-->
+

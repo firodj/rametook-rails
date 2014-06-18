@@ -1,0 +1,9 @@
+<td class="offset" id="modem_type_offset_<%= @modem_type.id %>"><%=h offset %></td>
+<td><%=h @modem_type.name %></td>
+<td><%=h @modem_type.sms_mode %></td>
+<td><%=h @modem_type.detect_pattern %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @modem_type.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @modem_type.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @modem_type) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @modem_type.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @modem_type) %>
+</td>

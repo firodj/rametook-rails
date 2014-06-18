@@ -1,0 +1,28 @@
+<td valign="top" align="center">
+<div id="sms_inbox_filter_offset_<%= @sms_inbox_filter.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="4" class="show">
+
+<p>
+<label><%= print_words('addressbook contact').capitalize_words %></label><span class="showvalue"><%= @sms_inbox_filter.addressbook_contact.display_name rescue '' %></span>
+</p>
+
+<p>
+<label><%= print_words('department').capitalize_words %></label><span class="showvalue"><%= @sms_inbox_filter.department.display_name rescue '' %></span>
+</p>
+
+<div style="border-bottom: 1px #c0c0c0 solid"></div>
+
+<p>
+<label><%= print_words('user').capitalize_words %></label><span class="showvalue"><%= @sms_inbox_filter.user.display_name rescue '' %></span>
+</p>
+
+<p>
+<label><%= print_words('user group').capitalize_words %></label><span class="showvalue"><%= @sms_inbox_filter.user_group.display_name rescue '' %></span>
+</p>
+
+
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @sms_inbox_filter.id} %> 
+</td>

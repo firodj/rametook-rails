@@ -1,0 +1,14 @@
+<td valign="top" align="center">
+<div id="sms_outbox_offset_<%= @sms_outbox.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="4">
+<% form_for :sms_outbox, :url => {:action => 'edit', :id => @sms_outbox.id}, :html => { :multipart => false } do |f| -%>
+  <%= error_messages_for 'sms_outbox' %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+  <%= submit_tag print_words('save').capitalize %>
+<% end -%>
+</td>
+<td valign="top" align="center">
+<%= print_words('cancel').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @sms_outbox.id} %> 
+</td>

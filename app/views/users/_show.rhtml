@@ -1,0 +1,99 @@
+<td valign="top" align="center">
+<div id="user_offset_<%= @user.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="7" class="show">
+
+<h2>Account</h2>
+
+<p>
+<label><%= print_words('userimage').capitalize_words %></label>
+<span class="showvalue">
+<div style="float:left; padding-right:10px;">
+  <div style="width:60px; background:#666 url('<%= image_path(@user.userimage) %>');">
+    <%= image_tag("frame.gif" ) %>
+  </div>
+</div>
+</span>
+</p>
+
+<p>
+<label><%= print_words('first name').capitalize_words %></label><span class="showvalue"><%= @user.first_name %> </span>
+</p>
+<p>
+<label><%= print_words('last name').capitalize_words %></label><span class="showvalue"><%= @user.last_name %> </span>
+</p>
+<p>
+<label><%= print_words('email').capitalize_words %></label><span class="showvalue"><%= @user.email %> </span>
+</p>
+<p>
+<label><%= print_words('login').capitalize_words %></label><span class="showvalue"><%= @user.login %> </span>
+</p>
+
+<h2>Profile</h2>
+
+<p>
+<label><%= print_words('department').capitalize_words %></label><span class="showvalue"><%= @user.department.display_name rescue '' %> </span>
+</p>
+<p>
+<label for="role_id"><%=h print_words('access level').capitalize %></label>
+<span class="showvalue"><% for role in @user.roles -%>
+<%= role.display_name.capitalize %> - <%= role.description %><br />
+<% end -%></span>
+</p>
+
+<p>
+<label><%= print_words('address').capitalize_words %></label><span class="showvalue"><%= @user.address %> </span>
+</p>
+<p>
+<label><%= print_words('city').capitalize_words %></label><span class="showvalue"><%= @user.city %> </span>
+</p>
+<p>
+<label><%= print_words('birthday').capitalize_words %></label><span class="showvalue"><%= @user.birthday %> </span>
+</p>
+
+<p>
+<label><%= print_words('bio').capitalize_words %></label><span class="showvalue"><%= @user.bio %> </span>
+</p>
+<p>
+<label><%= print_words('website').capitalize_words %></label><span class="showvalue"><%= @user.website %> </span>
+</p>
+<p>
+<label><%= print_words('country').capitalize_words %></label><span class="showvalue"><%= @user.country %> </span>
+</p>
+
+<h2>Group Operator</h2>
+
+<p>
+  <label><%= print_words('group operator').capitalize_words %></label>
+  <span class="showvalue"><%= @user.operated_groups.map(&:display_name).join('<br />') %></span>
+</p>
+  
+<br style="clear:both" />
+<h2>Log</h2>
+<p>
+<label><%= print_words('created at').capitalize_words %></label><span class="showvalue"><%= @user.created_at %></span>
+</p>
+<p>
+<label><%= print_words('updated at').capitalize_words %></label><span class="showvalue"><%= @user.updated_at %></span>
+</p>
+<p>
+<% if @user.activated_at then %>
+<label><%= print_words('activated at').capitalize_words %></label>
+<span class="showvalue"><%= @user.activated_at %></span>
+<% else %>
+<label><%= print_words('activation code').capitalize_words %></label>
+<span class="showvalue"><%= @user.activation_code %></span>
+<% end %>
+</p>
+<p>
+<label><%= print_words('last login at').capitalize_words %></label><span class="showvalue"><%= @user.last_login_at %></span>
+</p>
+<p>
+<label><%= print_words('last ip').capitalize_words %></label><span class="showvalue"><%= @user.last_ip %></span>
+</p>
+
+</td>
+
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @user.id} %> 
+</td>

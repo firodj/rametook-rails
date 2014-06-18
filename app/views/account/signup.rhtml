@@ -1,0 +1,42 @@
+<%
+	# app/views/account/signup.rhtml
+	# Signup Page
+-%>
+
+<h1><%=h print_words('sign up').capitalize %></h1>
+
+<% form_for :user do |f| -%>
+<%= error_messages_for 'user' %>
+
+<p>
+	<label for="user_first_name"><%=h print_words('first name').capitalize %></label>
+	<%= f.text_field :first_name %>
+</p>
+
+<p>
+	<label for="user_last_name"><%=h print_words('last name').capitalize %></label>
+	<%= f.text_field :last_name %>
+</p>
+
+<p>
+  <label for="user_email"><%=h print_words('email').capitalize %></label>
+  <%= f.text_field :email %>
+</p>
+
+<p>
+  <label for="user_login"><%=h print_words('username').capitalize %></label>
+  <%= f.text_field :login %>
+</p>
+
+<p>
+  <label for="user_password"><%=h print_words('password').capitalize %></label>
+  <%= f.password_field :password %>
+</p>
+
+<p>
+  <label for="user_password_confirmation"><%=h print_words('confirm').capitalize+" "+print_words('password') %></label>
+  <%= f.password_field :password_confirmation %>
+</p>
+
+<%= submit_tag print_words('sign up').capitalize %>
+<% end -%>

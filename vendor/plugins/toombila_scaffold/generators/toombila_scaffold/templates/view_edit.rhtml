@@ -1,0 +1,16 @@
+<td valign="top" align="center">
+<div id="<%= singular_name %>_offset_<%%= @<%= singular_name %>.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="<%= 
+model_instance.class.content_columns.size + 
+model_instance.class.reflect_on_all_associations(:belongs_to).size %>">
+<%% form_for(:<%= singular_name %>, :url => <%= singular_name %>_url(@<%= singular_name %>), :html => {:method => :put, :multipart => <%= model_instance.has_attribute?(:image).inspect %> }) do |f| -%>
+  <%%= error_messages_for '<%= singular_name %>' %>
+  <%%= render :partial => 'form', :locals => {:f => f} %>
+  <input type="hidden" id="page" name="page" value="<%%= params[:page] %>" />
+  <%%= submit_tag print_words('save').capitalize %>
+<%% end -%>
+</td>
+<td valign="top" align="center">
+<%%= print_words('cancel').capitalize_words %> <%%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @<%= singular_name %>.id} %> 
+</td>

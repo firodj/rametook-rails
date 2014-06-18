@@ -1,0 +1,113 @@
+<!--[form:user]-->
+<% 
+	# app/views/user/_form.rhtml 
+	# to be partially rendered from new and edit
+-%>
+<h2>Account</h2>
+
+<p>
+	<label for="user_first_name"><%=h print_words('first name').capitalize %></label>
+	<%= text_field 'user', 'first_name' %>
+</p>
+
+<p>
+	<label for="user_last_name"><%=h print_words('last name').capitalize %></label>
+	<%= text_field 'user', 'last_name' %>
+</p>
+
+<p>
+	<label for="user_email"><%=h print_words('email').capitalize %></label>
+	<%= text_field 'user', 'email' %>
+</p>
+
+<p>
+	<label for="user_login"><%=h print_words('login').capitalize%></label>
+	<%= text_field 'user', 'login', :disabled => (@current_user == @user) %>
+</p>
+
+<p>
+	<label for="user_password"><%=h print_words('password').capitalize %></label>
+	<%= password_field 'user', 'password' , :value => '' %>
+</p>
+
+<p>
+    <label for="user_password_confirmation"><%=h print_words('confirm').capitalize+' '+print_words('password') %></label>
+    <%= password_field 'user', 'password_confirmation' , :value => '' %>
+</p>
+
+<%=h print_words('leave blank not update').capitalize if params[:id] %>
+
+<h2>Profile</h2>
+<%= hidden_field 'user', 'business_contact_id' %>
+
+<p>
+	<label for="user_department_id"><%=h print_words('department').capitalize %></label>
+<% if (@current_user == @user) then -%>
+	<%= @user.department.name rescue '' %>
+<% else -%>
+	<%= select "user", "department_id", @departments %>        
+<% end -%>
+</p>
+
+<p>
+	<label for="role_id"><%=h print_words('access level').capitalize %></label>
+	<% for role in @roles 
+checked = @user.roles.include? role
+disabled = permit?('superadmin') ? (@current_user == @user && role.title == 'superadmin') : (@current_user == @user) # && !checked
+%>
+	<input type="checkbox" id="<%= role.id %>" name="role_ids[]" value="<%= role.id %>" <%= 'checked="checked"' if checked %> <%= 'disabled' if disabled %> />
+	<%= role.display_name.capitalize %> - <%= role.description %><br />
+	<% end %>
+</p>
+
+<p>
+	<label for="address"><%=h print_words('address').capitalize %></label>
+	<%= text_field 'user', 'address' %>
+</p>
+
+<p>
+	<label for="city"><%=h print_words('city').capitalize %></label>
+	<%= text_field 'user', 'city'  %>
+</p>
+
+<p>
+	<label for="birthday"><%=h print_words('birthday').capitalize %></label>
+	<%= text_field 'user', 'birthday', :size=> '10' %><%= calendar_for('user_birthday') %>
+</p>
+
+<h2><%=h print_words('image').capitalize %></h2>
+
+<p>
+	<label for="user_login"><%=h print_words('image').capitalize %></label>
+
+	<% if params[:id] -%>        
+	<div style="float:left; padding-right:10px;">
+	  <div style="width:60px; background:#666 url('<%= image_path(@user.userimage) %>');"><%= image_tag("frame.gif" ) %></div>
+	</div>
+	<% end -%>
+
+	<%= file_field 'user', 'userimage'  %><br />
+        <%=h print_words('image2').capitalize %><br />
+        <% if params[:id] -%> 
+	<input type="checkbox" name="removeimage" value="1" /> Remove <%= print_words('image') %>
+	<% end -%>
+</p>
+
+<h2>Group Operator</h2>
+
+<p>
+  <label><%= print_words('group operator').capitalize_words %></label>
+  <span class="showvalue">
+  <div class="addressbook_groups">
+<% for addressbook_group in AddressbookGroup.find(:all) do %>
+    <%= render :partial => 'users/group', :object => addressbook_group, :locals => {
+      :selected => @user.operated_groups.include?(addressbook_group)
+    } %>
+ <% end %>   
+  </div>
+
+
+  </span>
+
+</p>
+<!--[eoform:user]-->

@@ -1,0 +1,27 @@
+<!--[form:sms_template]-->
+<p>
+	<label><%=h print_words('name').capitalize_words %></label><%= text_field "sms_template", "name", 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('template').capitalize_words %></label><%= text_area "sms_template", "template", 'class'=>"input-text-area" %>
+</p>
+
+
+
+
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror
+<p>
+	<label>Image</label>
+	<%= file_field 'sms_template', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@sms_template.id.to_s)
+	    # replace .id with .image or your images column name 
+	%><br />
+	<input type="checkbox" name="updateimage" value="1" /><%=h print_words('update').capitalize %><br />
+	<% end -%>
+</p>
+-->
+<!--[eoform:sms_template]-->
+

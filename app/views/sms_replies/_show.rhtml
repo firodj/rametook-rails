@@ -1,0 +1,26 @@
+<td valign="top" align="center">
+<div id="sms_reply_offset_<%= @sms_reply.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="6" class="show">
+<p>
+<label><%= print_words('function').capitalize_words %></label><span class="showvalue"><%=h @sms_reply.function %></span>
+</p>
+<p>
+<label><%= print_words('action').capitalize_words %></label><span class="showvalue"><%=h @sms_reply.action %></span>
+</p>
+<p>
+<label><%= print_words('message').capitalize_words %></label><span class="showvalue"><div style="white-space: pre;"><%=h @sms_reply.message %></div></span>
+</p>
+<p>
+<label><%= print_words('tags').capitalize_words %></label><span class="showvalue"><%=h @sms_reply.tags %></span>
+</p>
+<p>
+<label><%= print_words('help info').capitalize_words %></label><span class="showvalue"><div style="white-space: pre;"><%=h @sms_reply.help_info %></div></span>
+</p>
+<p>
+<label><%= print_words('active').capitalize_words %></label><span class="showvalue"><%=h @sms_reply.active %></span>
+</p>
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @sms_reply.id} %> 
+</td>

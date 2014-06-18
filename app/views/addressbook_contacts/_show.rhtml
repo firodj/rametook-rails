@@ -1,0 +1,70 @@
+<td valign="top" align="center">
+<div id="addressbook_contact_offset_<%= @addressbook_contact.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="5" class="show">
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.name %></span>
+</p>
+<p>
+<label><%= print_words('email').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.email %></span>
+</p>
+
+<p>
+<label><%= print_words('phone').capitalize_words %></label>
+<span class="showvalue"><%= @addressbook_contact.addressbook_phones.map { |phone| "#{phone.display_number} - <em>#{phone.name}</em> " }.join(',<br />') %></span>
+</p>
+
+<p>
+<label><%= print_words('description').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.description %></span>
+</p>
+<p>
+<label><%= print_words('address').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.address %></span>
+</p>
+<p>
+<label><%= print_words('city').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.city %></span>
+</p>
+<p>
+<label><%= print_words('country').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.country %></span>
+</p>
+<p>
+<label><%= print_words('birthday').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.birthday %></span>
+</p>
+<p>
+<label><%= print_words('image').capitalize_words %></label><span class="showvalue"><%= image_tag(@addressbook_contact.image) if @addressbook_contact.image %></span>
+</p>
+<p>
+<label><%= print_words('privacy').capitalize_words %></label><span class="showvalue"><%= print_words(@addressbook_contact.public ? 'public' : 'private').capitalize_words %></span>
+</p>
+<p>
+<label><%= print_words('department').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.department.display_name rescue '' %></span>
+</p>
+
+<% if false then %>
+<!--
+<p>
+<label><%= print_words('group').capitalize_words %></label><span class="showvalue">
+<% addressbook_contact_groups = @addressbook_contact.addressbook_groups.find(:all, :conditions => {:user_id => current_user.id})
+if addressbook_contact_groups.empty? %>
+-
+<% else 
+  for addressbook_group in addressbook_contact_groups -%>
+  <%= addressbook_group.display_name.capitalize_words %><br />
+  <% end -%>
+<% end %>
+</span>
+</p>
+-->
+<% end %>
+
+<% if false %>
+<!--
+<p>
+<label><%= print_words('user').capitalize_words %></label><span class="showvalue"><%= @addressbook_contact.user.display_name rescue '' %></span>
+</p>
+-->
+<% end %>
+
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @addressbook_contact.id} %> 
+</td>

@@ -1,0 +1,29 @@
+<td valign="top" align="center">
+<div id="modem_at_command_offset_<%= @modem_at_command.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="5" class="show">
+
+<p>
+<label><%= print_words('function name').capitalize_words %></label><span class="showvalue"><%= @modem_at_command.function_name %></span>
+</p>
+
+<p>
+<label><%= print_words('at type').capitalize_words %></label><span class="showvalue"><%= @modem_at_command.at_type %></span>
+</p>
+
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @modem_at_command.name %></span>
+</p>
+
+<p>
+<label><%= print_words('case format').capitalize_words %></label><span class="showvalue"><%= @modem_at_command.case_format %></span>
+</p>
+<p>
+<label><%= print_words('format').capitalize_words %></label><span class="showvalue"><%= @modem_at_command.format %></span>
+</p>
+
+
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @modem_at_command.id} %> 
+</td>

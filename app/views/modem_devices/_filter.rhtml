@@ -1,0 +1,17 @@
+<div id="filter_form" style="padding:10px; border:1px solid #ddd;">
+<% form_tag( {:action => 'filter'}, {:multipart => false }) do -%>
+<h3><%= print_words('filter').capitalize_words %></h3>
+
+<div style="float:right;"><%= link_to_remote image_tag('icon_close.png')+' '+print_words('close').capitalize_words, :url => {:action => 'filter_cancel'} %>
+</div>
+
+<p>
+  <label><%= print_words('text').capitalize %></label>
+  <%= text_field_tag field_to_param(:search_text), params[field_to_param(:search_text)], {'class'=>"input-text"} %>
+</p>
+
+<%= submit_tag print_words('filter').capitalize_words %>
+<%= submit_tag(print_words('clear').capitalize_words, :name => 'clear') %>
+
+<% end %>
+</div>

@@ -1,0 +1,124 @@
+<!--[form:addressbook_contact]-->
+<% item_disable = @current_user.business_contact == @addressbook_contact %>
+
+<p>
+	<label><%=h print_words('name').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.display_name %></span>
+<% else %>
+	<%= text_field "addressbook_contact", "name", 'class'=>"input-text" %>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('email').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.email %></span>
+<% else %>
+	<%= text_field "addressbook_contact", "email", 'class'=>"input-text" %>
+<% end %>
+</p>
+
+<p>
+<label>Phones</label>
+<span class="showvalue">
+<div class="addressbook_phones">
+  <%= render :partial => 'phone', :collection => @addressbook_contact.addressbook_phones %>
+</div>
+<div class="addressbook_phone_add">
+  <%= link_to_function "add phone number" do |page|
+    page.assign 'content', partial_content_for_phone
+    page << "$(this).up('.addressbook_phone_add').previous('.addressbook_phones').insert({bottom: content})"
+  end %>
+</div>
+</span>
+</p>
+
+<p>
+	<label><%=h print_words('description').capitalize_words %></label><%= text_area "addressbook_contact", "description", 'class'=>"input-text-area" %>
+</p>
+
+<p>
+	<label><%=h print_words('address').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.address %></span>
+<% else %>
+  <%= text_field "addressbook_contact", "address", 'class'=>"input-text" %>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('city').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.city %></span>
+<% else %>
+	<%= text_field "addressbook_contact", "city", 'class'=>"input-text" %>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('country').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.country %></span>
+<% else %>	
+	<%= text_field "addressbook_contact", "country", 'class'=>"input-text" %>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('birthday').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.birthday %></span>
+<% else %>
+	<%= text_field 'addressbook_contact', 'birthday', :size=> '10' %><%= calendar_for('addressbook_contact_birthday') %>
+<% end %>
+</p>
+
+<%= hidden_field "addressbook_contact", "department_id" %>
+<% if false  %>
+<p>
+  <label><%= print_words('department').capitalize_words %></label>
+<% if item_disable then %>
+  <span class="showvalue"><%= @addressbook_contact.department.display_name rescue '' %></span>
+<% else %>
+  <%= select "addressbook_contact", "department_id", @departments %>
+<% end %>
+</p>
+<% end %>
+
+<p>
+	<label><%=h print_words('image').capitalize_words %></label>
+	<%= file_field 'addressbook_contact', 'image' %><br />
+<% if params[:id] && !@addressbook_contact.image.nil? then -%>
+  <%= image_tag(@addressbook_contact.image.to_s) %><br />
+  <%= check_box_tag 'removeimage', true %>
+  <%=h print_words('remove image').capitalize %><br />
+<% end -%>
+</p>
+
+<%= hidden_field "addressbook_contact", "public" %>
+
+<% if false  %>
+<p>
+	<label><%=h print_words('privacy').capitalize_words %></label>
+  <%= radio_select "addressbook_contact", "public", @privacies %>
+</p>
+<% end %>
+
+<p>
+  <label><%= print_words('group').capitalize_words %></label>
+  <span class="showvalue">
+  <div class="addressbook_groups">
+<% for addressbook_group in AddressbookGroup.find(:all) do %>
+    <%= render :partial => 'group', :object => addressbook_group, :locals => {
+      :selected => @addressbook_contact.addressbook_groups.include?(addressbook_group)
+    } %>
+ <% end %>   
+  </div>
+
+
+  </span>
+</p>
+
+<!--[eoform:addressbook_contact]-->
+

@@ -1,0 +1,21 @@
+<h1>
+	<%= image_tag("/images/icon_sms_log.png", :style => "float:none;") %> 
+	<%=h print_words('message').capitalize_words %> <%=h print_words('progress').capitalize_words %>
+</h1>
+
+<h2>Outbox</h2>
+<table>
+  <thead>
+    <tr>
+    <th><%=h print_words('check time').capitalize_words %></th> 
+    <th><%=h print_words('service center time').capitalize_words %></th>
+    <th><%=h print_words('status').capitalize_words %></th>
+    <th><%=h print_words('number').capitalize_words %></th>
+    <th><%=h print_words('message').capitalize_words %></th>
+    </tr>
+  </thead>  
+  <tbody id="sms_outbox_progress"><%= render :partial => 'update_progress' %></tbody>
+</table>
+
+<%= periodically_call_remote :url => {:action => 'update_progress'}, :frequency => 3, :update => 'sms_outbox_progress' %>
+

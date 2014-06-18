@@ -1,0 +1,16 @@
+<div id="import_form" style="padding:10px; border:1px solid #ddd;">
+<% form_tag( {:action => 'import'}, {:multipart => true }) do -%>
+<h3><%= print_words('import').capitalize_words %></h3>
+
+<div style="float:right;"><%= link_to_remote image_tag('icon_close.png')+' '+print_words('close').capitalize_words, :url => {:action => 'import_cancel'} %>
+</div>
+
+<p>
+  <label><%= print_words('file').capitalize %></label>
+  <%= file_field_tag field_to_param(:uploaded_file) %>
+</p>
+
+<%= submit_tag print_words('import').capitalize_words %>
+
+<% end %>
+</div>

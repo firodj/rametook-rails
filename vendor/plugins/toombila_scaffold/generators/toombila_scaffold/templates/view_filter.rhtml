@@ -1,0 +1,24 @@
+<div id="filter_form" style="padding:10px; border:1px solid #ddd;">
+<%% form_tag( {:action => 'filter'}, {:multipart => false }) do -%>
+<h3><%%= print_words('filter').capitalize_words %></h3>
+
+<div style="float:right;"><%%= link_to_remote image_tag('icon_close.png')+' '+print_words('close').capitalize_words, :url => {:action => 'filter_cancel'} %>
+</div>
+
+<% model_instance.class.reflect_on_all_associations(:belongs_to).each do |belongs_to| -%>
+<p>
+  <label><%%= print_words('<%= belongs_to.name.to_s.humanize.downcase %>').capitalize_words %></label>
+  <%%= select_tag field_to_param(:<%= belongs_to.primary_key_name %>), options_for_select( @<%= belongs_to.name.to_s.pluralize %>, params[field_to_param(:<%= belongs_to.primary_key_name %>)].to_i) %>
+</p>
+<% end %>
+
+<p>
+  <label><%%= print_words('text').capitalize %></label>
+  <%%= text_field_tag field_to_param(:search_text), params[field_to_param(:search_text)], {'class'=>"input-text"} %>
+</p>
+
+<%%= submit_tag print_words('filter').capitalize_words %>
+<%%= submit_tag(print_words('clear').capitalize_words, :name => 'clear') %>
+
+<%% end %>
+</div>

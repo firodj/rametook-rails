@@ -1,0 +1,25 @@
+development:
+  adapter: mysql
+  database: toombila_rametook_firo
+  username: root
+  password: 
+  host: localhost
+  socket: /var/run/mysqld/mysqld.sock
+
+test:
+  adapter: mysql
+  database: toombila_test
+  username: toombila
+  password: toombila123
+  host: localhost
+  #socket: /var/run/mysqld/mysqld.sock  
+  
+production:
+  adapter: mysql
+  database: toombila_rametook_firo
+  username: root
+  password: 
+  host: localhost
+  socket: /var/run/mysqld/mysqld.sock  
+
+  

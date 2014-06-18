@@ -1,0 +1,5 @@
+<% extras = @table.extras[@column.name]
+if extras && extras['Key'] == 'PRI' then
+%><%= link_to_remote(image_tag('b_primary.png', :title => 'Drop Primary Key'), :url => {:action => 'remove_primary', :table => @table.name, :value => @column.name}, :confirm => 'Are you sure want to Drop Primary Key?') %><%
+end %>
+<%= link_to_remote(@column.type.to_s, :url => {:action => 'edit_column', :table => @table.name, :value => @column.name}) %>

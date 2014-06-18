@@ -1,0 +1,107 @@
+<%= javascript_include_tag "sms/send" %>
+
+<h1 id="title">
+<%= image_tag("/images/icon_sms_outbox.png", :style => "float:none;") %> 
+<%=h print_words('list').capitalize_words %> <%=h print_words('sms outbox').capitalize_words %>
+<%= image_tag('/images/spinner/snake.gif', :style => "width: auto !important; height: auto !important; display: none;", :id => 'list_spinner') %>
+</h1>
+
+<% if granted_to(:create, nil) then -%>
+<div id="add_new_button">
+  <%= link_to_remote print_words('add').capitalize_words, :url => {:action => 'new', :page => params[:page]} %>
+</div>
+<% end -%>
+
+<div id="filter_button">
+  <%= link_to_remote print_words('filter').capitalize_words, :url => {:params => params.dup.update(:action => 'filter')} %>
+</div>
+
+<br style="clear:both;" />
+
+<% unless @search_titles.empty? -%>
+<div class="show">
+<p><%
+@search_titles.each do |sub_title| 
+  sub_title_1 = sub_title[1].respond_to?(:display_name) ? sub_title[1].display_name : sub_title[1]
+-%>
+<label><%= print_words(sub_title[0]).capitalize_words %> :</label><span class="showvalue"><%= sub_title_1 %></span><br />
+<% end -%></p>
+</div>
+<% end -%>
+
+<table id="list_sms_outboxes">
+<thead>
+<tr>
+  <th><%=h print_words('no').capitalize_words %></th>
+  <th><%=h print_words('receiver').capitalize_words %></th>
+  <th><%=h print_words('message').capitalize_words %></th>
+  <th><%=h print_words('created at').capitalize_words %></th>
+  <th><%=h print_words('status').capitalize_words %></th>
+  <th><%=h print_words('manage').capitalize_words %></th>
+</tr>
+</thead>
+<tbody>
+<!-- If you remove N columns from list.rhtml and _list.rhtml then put minus N on edit.rhtml's and show.rhtml's colspan-->
+<% offset = @sms_outbox_pages.current.offset 
+for @sms_outbox in @sms_outboxes
+  offset += 1
+%>
+<tr class="<%= cycle('odd', 'even')%>" id="sms_outbox_<%= @sms_outbox.id %>">
+<%= render :partial => 'item', :locals => {:offset => offset} %>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<div id="paginator_line" class="paginator">
+<%= link_to_paginator @sms_outbox_pages, {:params => params}, {'class'=>'page_number'} %>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+function refresh_sms_outbox_list(response) {
+  status = response.responseJSON
+  $H(status.single).each( function(pair) {    
+    e = $('sms_outbox_status_' + pair[0])
+    if (e) {
+      if (e.innerHTML != pair[1]) {
+        e.update(pair[1]);
+        e.pulsate();
+      }
+    }
+  });
+  
+  $H(status.multi).each( function(pair) {    
+    e = $('sms_outbox_group_status_' + pair[0])
+    if (e) {
+      if (e.innerHTML != pair[1]) {
+        e.update(pair[1]);
+        e.pulsate();
+      }
+    }
+  });
+}
+
+function sms_outbox_view_ids() {
+  
+  ids = $A([]);
+  $$('tr').each( function(e) {
+    match_id = e.id.match(/^sms_outbox_([0-9]+)/);
+    if (match_id)
+      ids.push(match_id[1]);
+  } );
+
+  return ids;
+}
+
+//]]>
+</script>
+
+<%= periodically_call_remote(
+  :url => {:action => 'update_progress'},
+  :with => "'sms_outbox_ids=' + sms_outbox_view_ids()",
+  :frequency => 7, 
+  :before => "$('list_spinner').show()",
+  :loaded => "$('list_spinner').hide()",
+  :success => 'refresh_sms_outbox_list(request)') %>
+

@@ -1,0 +1,41 @@
+<td valign="top" align="center">
+<div id="modem_device_offset_<%= @modem_device.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="6" class="show">
+<p>
+<label><%= print_words('device').capitalize_words %></label><span class="showvalue"><%= @modem_device.device %> <%= @modem_device.active ? '[' + print_words('active') + ']' : nil %></span>
+</p>
+
+<p>
+<label><%= print_words('baudrate').capitalize_words %></label><span class="showvalue"><%= @modem_device.baudrate %></span>
+</p>
+<p>
+<label><%= print_words('databits').capitalize_words %></label><span class="showvalue"><%= @modem_device.databits %></span>
+</p>
+<p>
+<label><%= print_words('stopbits').capitalize_words %></label><span class="showvalue"><%= @modem_device.stopbits %></span>
+</p>
+<p>
+<label><%= print_words('parity').capitalize_words %></label><span class="showvalue"><%= @modem_device.parity %></span>
+</p>
+
+<p>
+<label><%= print_words('last refresh').capitalize_words %></label><span class="showvalue"><%= @modem_device.last_refresh %></span>
+</p>
+
+<p>
+<label><%= print_words('identifier').capitalize_words %></label>
+<span class="showvalue"><div style="white-space: pre"><%=h @modem_device.identifier.gsub(';',"\n") %></div></span>
+</p>
+<p>
+<label><%= print_words('signal quality').capitalize_words %></label><span class="showvalue"><%= @modem_device.signal_quality %></span>
+</p>
+
+<p>
+<label><%= print_words('modem type').capitalize_words %></label><span class="showvalue"><%= @modem_device.modem_type.display_name rescue '' %></span>
+</p>
+
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @modem_device.id} %> 
+</td>

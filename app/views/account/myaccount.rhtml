@@ -1,0 +1,18 @@
+<% 
+	# app/views/account/myaccount.rhtml 
+-%>
+
+<h1>
+	<%= image_tag("/images/icon_user.png", {:alt => "", :style => "float:none;"}) %> <%=h print_words('my account').capitalize %>
+</h1>
+
+<% form_for :user, :url => {:controller => 'users', :action => 'edit', :id => @current_user}, :html => { :multipart => true } do |f| -%>
+  	<%= render :partial => 'users/form' %> 
+        <%= hidden_field_tag :myaccount, 1 %>
+        <p>
+  	<%= submit_tag print_words('save').capitalize %>
+        </p>
+<% end -%>
+
+<%= link_to 'Back', :action => 'index' %>
+

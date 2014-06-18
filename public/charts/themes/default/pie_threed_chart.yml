@@ -1,0 +1,29 @@
+<%= chart :pie_threed %>
+  <%=comp :legend_rect %>
+    x:          15
+    y:          0
+    width:      0
+    height:     5
+    
+  <%=comp :chart_rect %>
+    x:              450
+    y:              0 
+    height:         300
+    width:          300      
+    positive_alpha: 0
+    negative_alpha: 0
+    
+  <%=comp :chart_value %>
+    position: inside
+    
+  <%=comp :chart_border %>
+    left_thickness:   0
+    bottom_thickness: 0
+    top_thickness:    0
+    right_thickness:  0    
+    
+  <%=comp :chart_grid_h %>
+    alpha:     0
+  
+  <%=comp :chart_grid_v %>
+    alpha:     0     

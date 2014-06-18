@@ -1,0 +1,76 @@
+<% # javascript_include_tag "dragdrop" %>
+<%= javascript_tag "
+function moveDragDrop(draggable,dropzone) {
+  // str.search(/[0-9]+$/)
+  str = draggable.id;
+  item_from = str.slice( 12  );
+  str = dropzone.id;
+  item_to = str.slice( 12 );
+  // alert('moving item from '+item_from+' to '+item_to);
+  new Ajax.Request('#{url_for :action => 'move_column'}', {
+    parameters: $H({
+      from_name: item_from, to_name: item_to, table: '#{@table.name}'
+      }).toQueryString()
+    }
+  );
+  
+  // draggable.parentNode.removeChild(draggable);
+  // dropzone.appendChild(draggable);
+}
+
+function showAddOption(value,field,clear) {
+  form_limit = ['string','text','binary','integer'];
+  form_decimal = ['decimal']; 
+  $('form_field_limit_' + field).style['display']   = form_limit.indexOf(value) != -1 ? 'inline' : 'none';
+  $('form_field_decimal_' + field).style['display'] = form_decimal.indexOf(value) != -1 ? 'inline' : 'none';
+  if (clear) {
+    the_form = $('form_for_field_' + field);
+    the_form.limit.value = '';
+    the_form.precision.value = '';
+    the_form.scale.value = '';
+  }
+}
+
+" %>
+<style>
+.drop_hover { background: #e0e0e0; }
+</style>
+<h1 class="title">Designer Database - Table Column</h1>
+<h2>Table: <%= inplace_editor @table.name, @table.name, {:action => 'edit_table_then_list'}, 'name' %></h2>
+<table>
+<thead>
+<tr>
+<th>No</th><th>Delete</th><th>Column Name</th><th>Column Type</th>
+</tr>
+</thead>
+<tbody>
+<% n = 0
+after_column = ''
+@table.columns.each do |@column| 
+n += 1
+%>
+<tr class="<%= cycle('odd','even') %>"><td><%= n %></td>
+<td><%= link_to image_tag("icon_close.png"), {:action => 'delete_column', :value => @column.name, :table => @table.name}, :confirm => "Are you sure to delete '#{@column.name}' ?", :title => 'Drop' %></td>
+<td><div id="column_drop_<%= after_column %>" style="height: 3px; border: 1px #f4f4f4  solid;" ></div>
+<span id="column_drag_<%= @column.name %>" style="cursor: pointer">
+<%= image_tag('move.png', :id => "column_hand_#{@column.name}" ) %>
+<%= inplace_editor @column.name, @column.name, {:action => 'rename_column'}, n, {:table => @table.name} %>
+</span>
+<%= draggable_element("column_drag_#{@column.name}", :revert => true, :handle => "column_hand_#{@column.name}".to_json ) %>
+<%= drop_receiving_element("column_drop_#{after_column}", :onDrop => 'moveDragDrop', :hoverclass => 'drop_hover') %>
+</td><td><div id="column_type_<%= @column.name %>">
+<%= render :partial => 'type' %></div></td>
+</tr>
+<% 
+after_column = @column.name
+end %>
+
+<tr><td>*</td><td></td><td>
+<div id="column_drop_<%= after_column %>" style="height: 3px; border: 1px #f4f4f4 solid;"></div>
+<%= inplace_editor image_tag("icon_cms.png") + ' Create', '', {:action => 'new_column', :table => @table.name}, 0 %>
+<%= drop_receiving_element("column_drop_#{after_column}", :onDrop => 'moveDragDrop', :hoverclass => 'drop_hover' ) %>
+</td><td></td></tr>
+</tbody>
+</table>
+
+<%= link_to 'Back', :action => 'index' %>

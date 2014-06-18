@@ -1,0 +1,37 @@
+elem_id = "sms_outbox_offset_#{@sms_outbox.id}"
+options = @render_options || {}
+options[:partial] ||= 'item'
+options[:locals]  = {:offset => ''}.update( options[:locals] || {})
+
+# message
+page['message'].hide
+page.replace_html "message", options[:message]
+if options[:message] then
+  page.insert_html :top, 'message', 
+      print_words('sms outbox').capitalize_words + " \"#{@sms_outbox.display_name}\" " + options[:message]
+  page['message'].show
+end
+
+# fade / show item
+if options[:fade] then
+  page.visual_effect :fade, "sms_outbox_#{@sms_outbox.id}", 
+    :afterFinish => "function() { $('sms_outbox_#{@sms_outbox.id}').remove(); }"
+else
+  page << %Q{txt = $("#{elem_id}").innerHTML}
+  page.replace_html "sms_outbox_#{@sms_outbox.id}", :partial => options[:partial], :locals => options[:locals]
+  page << %Q{$("#{elem_id}").update(txt)}
+end
+
+# high lite effex
+if options[:highlight] then
+  fx = case options[:highlight]
+    when :white
+      {:startcolor => "'#BFBFBF'", :endcolor => "'#FFFFFF'"}
+    when :red
+      {:startcolor => "'#BFBFBF'", :endcolor => "'#FF5F5F'"}
+    else
+      {}
+    end
+  
+  page.visual_effect :highlight, "sms_outbox_#{@sms_outbox.id}", fx
+end

@@ -1,0 +1,13 @@
+<% 
+contact = AddressbookPhone.search_by_number( @sms_inbox.number, :user_id => current_user.id, :country_code => '62' ) 
+number_display = contact.empty? ? @sms_inbox.number : "<strong>#{contact.first.addressbook_contact.display_name}</strong><br />#{@sms_inbox.number}"
+%>
+<td class="offset" id="sms_inbox_offset_<%= @sms_inbox.id %>"><%=h offset %></td>
+<td><%= number_display %></td>
+<td align="left"><%= image_tag( @sms_inbox.has_read ? "/images/icon-sms-open.png" : "/images/icon-sms-new.png" ) %> <%= @sms_inbox.message.truncate(40) %></td>
+<td><%= @sms_inbox.received_time.strfindo_by_today rescue '' %></td>
+<td class="offset_right">
+  <%= link_to image_tag("/images/icon-reply.png"), :controller => 'sms_send', :action => 'send_from_reply', :id => @sms_inbox.id %>
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @sms_inbox.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @sms_inbox.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @sms_inbox) %>
+</td>

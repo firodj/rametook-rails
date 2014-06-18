@@ -1,0 +1,27 @@
+<!--[form:role]-->
+<p>
+	<label><%=h print_words('title').capitalize_words %></label><%= text_field "role", "title", 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('description').capitalize_words %></label><%= text_field "role", "description", 'class'=>"input-text" %>
+</p>
+
+
+
+
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror
+<p>
+	<label>Image</label>
+	<%= file_field 'role', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@role.id.to_s)
+	    # replace .id with .image or your images column name 
+	%><br />
+	<input type="checkbox" name="updateimage" value="1" /><%=h print_words('update').capitalize %><br />
+	<% end -%>
+</p>
+-->
+<!--[eoform:role]-->
+

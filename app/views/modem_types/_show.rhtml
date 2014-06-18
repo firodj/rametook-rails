@@ -1,0 +1,40 @@
+<td valign="top" align="center">
+<div id="modem_type_offset_<%= @modem_type.id %>"></div>
+</td>
+
+<td style="padding:10px;" colspan="3" class="show">
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @modem_type.name %></span>
+</p>
+
+<p>
+<label><%= print_words('sms mode').capitalize_words %></label><span class="showvalue"><%= @modem_type.sms_mode %></span>
+</p>
+
+<p>
+<label><%= print_words('init command').capitalize_words %></label><span class="showvalue"><%= @modem_type.init_command %></span>
+</p>
+
+<p>
+<label><%= print_words('detect pattern').capitalize_words %></label><span class="showvalue"><%= @modem_type.detect_pattern %></span>
+</p>
+
+<p>
+<label><%= print_words('identifier exact').capitalize_words %></label>
+<span class="showvalue"><%= @modem_type.identifier_exact %></span>
+</p>
+
+<% if @modem_type.id != 0 %>
+<p>
+<div>
+<%= link_to print_words('export').capitalize_words, :action => 'export', :id => @modem_type.id %>
+</div>
+</p>
+<% end %>
+
+</td>
+
+
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @modem_type.id} %> 
+</td>

@@ -1,0 +1,11 @@
+<td class="offset" id="sms_inbox_filter_offset_<%= @sms_inbox_filter.id %>"><%=h offset %></td>
+<td><%= @sms_inbox_filter.department.display_name rescue '' %></td>
+<td><%= @sms_inbox_filter.addressbook_contact.display_name rescue '' %></td>
+<td><%= @sms_inbox_filter.user.display_name rescue '' %></td>
+<td><%= @sms_inbox_filter.user_group.display_name rescue '' %></td>
+
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @sms_inbox_filter.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @sms_inbox_filter.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @sms_inbox_filter) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @sms_inbox_filter.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @sms_inbox_filter) %>
+</td>

@@ -1,0 +1,14 @@
+<h1 id="title">
+	<%= image_tag("/images/icon_sms_template.png", :style => "float:none;") %> 
+	<%=h print_words('edit').capitalize_words %> <%=h print_words('sms_template').capitalize_words %>
+</h1>
+<div id="edit_form" style="padding:10px; border:1px solid #ddd;">
+<% form_for :sms_template , :url => {:action => 'edit'}, :html => { :multipart => false } do |f| -%>
+  <div style="float:right;">
+  <%= link_to image_tag('icon_close.png')+' '+print_words('cancel').capitalize_words, :action => 'list', :page => params[:page] %>
+  </div>
+	<%= error_messages_for 'sms_template' %> 
+  	<%= render :partial => 'form', :locals => {:f => f} %>
+  	<%= submit_tag print_words('save').capitalize %>
+<% end %>
+</div>

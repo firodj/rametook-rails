@@ -1,0 +1,37 @@
+<!--[form:modem_at_command]-->
+<p>
+	<label><%=h print_words('function name').capitalize_words %></label><%= text_field "modem_at_command", "function_name", 'size' => 16, 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('at type').capitalize_words %></label><%= select "modem_at_command", "at_type", @modem_at_command_at_types %>
+</p>
+
+
+<p>
+	<label><%=h print_words('name').capitalize_words %></label><%= text_field "modem_at_command", "name", 'size' => 16, 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('case format').capitalize_words %></label><%= text_field "modem_at_command", "case_format", 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('format').capitalize_words %></label><%= text_field "modem_at_command", "format", 'class'=>"input-text", 'style' => "width: 400px" %>
+</p>
+
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror
+<p>
+	<label>Image</label>
+	<%= file_field 'modem_at_command', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@modem_at_command.id.to_s)
+	    # replace .id with .image or your images column name 
+	%><br />
+	<input type="checkbox" name="updateimage" value="1" /><%=h print_words('update').capitalize %><br />
+	<% end -%>
+</p>
+-->
+<!--[eoform:modem_at_command]-->
+

@@ -1,0 +1,11 @@
+<% 
+prefix = "addressbook_contact[#{phone.new_record? ? 'new' : 'existing'}_phones_attributes][#{phone.id}]"
+fields_for prefix, phone do |f| 
+%>
+<div class="addressbook_phone">
+  <% # select_tag "addressbook_phones[#{phone.id}][name]", options_for_select(AddressbookPhone::NAME, phone.name) %>
+  <%= f.text_field :name, 'class' => "input-text", 'style' => 'width: 50px' %> 
+  Number: <%= f.text_field :display_number, 'class'=>"input-text" %>
+  <%= link_to_function "remove", "$(this).up('.addressbook_phone').remove()" %>
+</div>
+<% end %>

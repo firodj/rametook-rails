@@ -1,0 +1,27 @@
+<!--[form:department]-->
+<p>
+	<label><%=h print_words('name').capitalize_words %></label><%= text_field "department", "name", 'class'=>"input-text" %>
+</p>
+
+
+<p>
+  <label><%= print_words('parent').capitalize_words %></label>
+  <%= select "department", "parent_id", @parents %>
+</p>
+
+
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror
+<p>
+	<label>Image</label>
+	<%= file_field 'department', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@department.id.to_s)
+	    # replace .id with .image or your images column name 
+	%><br />
+	<input type="checkbox" name="updateimage" value="1" /><%=h print_words('update').capitalize %><br />
+	<% end -%>
+</p>
+-->
+<!--[eoform:department]-->
+

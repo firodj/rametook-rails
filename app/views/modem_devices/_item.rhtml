@@ -1,0 +1,12 @@
+<td class="offset" id="modem_device_offset_<%= @modem_device.id %>"><%=h offset %></td>
+<td><%=h @modem_device.device %></td>
+<td><%=h @modem_device.capabilities %></td>
+<td><%=h @modem_device.active %></td>
+<td><%=h @modem_device.last_refresh.strfindo_by_today %></td>
+<td><div style="white-space: pre"><%=h @modem_device.identifier.gsub(';',"\n") if @modem_device.identifier %></div></td>
+<td><%=h @modem_device.signal_quality %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @modem_device.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @modem_device.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @modem_device) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @modem_device.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @modem_device) %>
+</td>

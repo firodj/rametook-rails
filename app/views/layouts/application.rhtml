@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <title><%=h setting_info('site name') %> - <%=h controller.action_name.capitalize %></title>
+   <%= stylesheet_link_tag "main" %>
+	 <%= stylesheet_link_tag "calendar" %>
+   
+   <%= javascript_include_tag "prototype" %>
+   <%= javascript_include_tag "scriptaculous" %>
+   <%= javascript_include_tag "common" %>
+   <% # javascript_include_tag "effects" %>
+   <% # javascript_include_tag "controls" %>
+	 <%= javascript_include_tag "calendar/calendar" %>
+	 <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
+	 <%= javascript_include_tag "calendar/calendar-setup" %>
+</head>
+
+<body>
+<div id="wrap">
+  <div id="header">
+    <div id="site-name">
+			<p id="sitename"><%=h setting_info('site name') %></p>
+			<p id="sitesubtitle"><%=h setting_info('subtitle') %></p>
+    </div>
+		<ul id="nav">
+      <li><%= link_to print_words('home').capitalize_words, :controller => "account"%>
+        <ul>
+<% if logged_in? -%>
+          <li><%= link_to print_words('home').capitalize_words, :controller => "account" %></li>
+          <li><%= link_to print_words('dashboard').capitalize_words, :controller => "account" , :action => "admin_home" %></li>  
+          <li><%= link_to print_words('my account').capitalize_words, :controller => "account" , :action => "myaccount" %></li>
+<% else -%>
+          <li><%= link_to print_words('login').capitalize, :controller => "account" , :action => "login" %></li>
+<% if Setting.find_by_name('open signup').value == 'yes' -%>
+          <li><%= link_to print_words('sign up').capitalize, :controller => "account" , :action => "signup" %></li>						
+<% end -%>
+<% end -%>
+        </ul>    
+      </li>
+
+      <% if logged_in? -%>
+      <li><%= link_to print_words('addressbook').capitalize_words%>
+        <ul>
+        	<li><%= link_to print_words('public addressbook contact').capitalize_words, :controller => "addressbook_contacts", :action => 'list_public' %></li>
+        	<li><%= link_to print_words('public addressbook group').capitalize_words, :controller => "addressbook_groups", :action => 'list_public'  %></li>
+<% restrict_to 'superadmin | inboxadmin' do %>
+	      <li><%= link_to print_words('SMS inbox filter').capitalize_words, :controller => "sms_inbox_filters" %></li>
+<% end %>
+        </ul>
+      <li>
+      
+      <li><%= link_to print_words('SMS').capitalize_words%>
+        <ul>
+  <li><%= link_to print_words('send SMS').capitalize_words, :controller => "sms_send" %></li>	
+	<li><%= link_to print_words('SMS inbox').capitalize_words, :controller => "sms_inboxes" %></li>
+	<li><%= link_to print_words('SMS outbox').capitalize_words, :controller => "sms_outboxes" %></li>
+	<li><%= link_to print_words('SMS template').capitalize_words, :controller => "sms_templates" %></li>
+        </ul>    
+      </li>
+      
+<% restrict_to 'developer | superadmin' do %>
+      <li><%= link_to print_words('SMS admin').capitalize_words%>
+        <ul>
+<% restrict_to 'developer' do %>
+  <li><%= link_to print_words('manage list modem').capitalize_words, :controller => "modem_devices" %></li>
+	<li><%= link_to print_words('manage modem type').capitalize_words, :controller => "modem_types" %></li>
+	<li><%= link_to print_words('manage AT command').capitalize_words, :controller => "modem_at_commands" %></li>
+<% end %>	
+	<li><%= link_to print_words('sms reply').capitalize_words, sms_replies_path %></li>
+        </ul> 
+      </li>
+<% end %>
+      
+     	<li><%= link_to print_words('logout').capitalize_words, :controller => "account", :action => "logout" %></li>
+      <% end -%>
+    </ul>
+  </div>
+
+  <div id="content-wrap">		
+    <div id="content">	
+      <div id="breadcrumb">
+        <div id="message" style="padding:5px; background:#ffdfbc; border:1px solid #942a00; text-align:center; display: none" class="error">
+          <%= [:message, :error, :notice].map do |e| content_tag :p, html_escape( flash[e] ), :class => "error" if flash[e] end %>
+        </div>
+        
+<%= javascript_tag(%Q{$('message').show()}) if flash.any? %>
+     
+      <%= yield %>
+      
+      </div>
+      <div id="footer">
+        <p>
+          2007-2008 Rametook Project<br />
+        </p>
+      </div>			
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

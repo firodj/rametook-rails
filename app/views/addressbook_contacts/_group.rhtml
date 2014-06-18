@@ -1,0 +1,10 @@
+<% 
+prefix = "addressbook_contact[#{group.new_record? ? 'new' : 'selecting'}_groups_attributes][#{group.id}]"
+group[:selected] = selected
+fields_for prefix, group do |f| 
+%>
+<div class="addressbook_group">
+<%= f.check_box :selected %>
+<%= group.display_name.capitalize_words %><br />
+</div>
+<% end %>

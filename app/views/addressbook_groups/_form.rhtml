@@ -1,0 +1,11 @@
+<!--[form:addressbook_group]-->
+
+<p>
+	<label><%=h print_words('name').capitalize_words %></label><%= f.text_field "name", 'class' => "input-text" %>
+</p>
+
+<%= f.hidden_field 'public' %>
+<%= f.hidden_field 'user_id' %>
+
+<!--[eoform:addressbook_group]-->
+

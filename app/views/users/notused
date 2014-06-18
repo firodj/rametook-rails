@@ -1,0 +1,18 @@
+_show.rhtml
+
+<p>
+<label><%= print_words('Crypted password').capitalize_words %></label><span class="showvalue">: <%= @user.crypted_password %></span>
+</p>
+<p>
+<label><%= print_words('Salt').capitalize_words %></label><span class="showvalue">: <%= @user.salt %></span>
+</p>
+<p>
+<label><%= print_words('Remember token').capitalize_words %></label><span class="showvalue">: <%= @user.remember_token %></span>
+</p>
+<p>
+<label><%= print_words('Remember token expires at').capitalize_words %></label><span class="showvalue">: <%= @user.remember_token_expires_at %></span>
+</p>
+<p>
+<label><%= print_words('Activation code').capitalize_words %></label><span class="showvalue">: <%= @user.activation_code %></span>
+</p>
+

@@ -1,0 +1,27 @@
+<td class="offset" id="addressbook_contact_offset_<%= @addressbook_contact.id %>"><%=h offset %></td>
+<td>
+<div style="padding-right:10px;">
+<% if @addressbook_contact.image then %>
+  <div style="width:60px; background:#666 url('<%= image_path(@addressbook_contact.image || '') %>');">
+    <%= image_tag("frame.gif" ) %>
+  </div>
+<% end %>
+</div>
+</td>
+<td><%=h @addressbook_contact.name %></td>
+<td>
+<%= @addressbook_contact.addressbook_phones.map { |phone| "#{phone.display_number} - <em>#{phone.name}</em> " }.join(',<br />') %>
+</td>
+<td><%=h @addressbook_contact.email %><br /><%=h @addressbook_contact.address %></td>
+<td><%= @addressbook_contact.addressbook_groups.map(&:name).join(', ') %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @addressbook_contact.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @addressbook_contact.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @addressbook_contact) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @addressbook_contact.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @addressbook_contact) %>
+<% if !@addressbook_contact.business_user && permit?('superadmin') then %>
+  <%= link_to print_words('create').capitalize_words, 
+    :controller => 'users',
+    :action => 'new', 
+    :business_contact_id => @addressbook_contact.id %>
+<% end %>
+</td>

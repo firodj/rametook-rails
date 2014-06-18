@@ -1,0 +1,136 @@
+<!--[form:addressbook_group]-->
+
+<p>
+	<label><%=h print_words('name').capitalize_words %></label><%= text_field "addressbook_group", "name", 'class' => "input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('privacy').capitalize_words %></label>
+  <%= select "addressbook_group", "public", @privacies, {}, :id => "addressbook_group_public_#{ addressbook_group_id }" %>
+</p>
+
+<div id="field_for_department_<%= addressbook_group_id %>" style="display: none">
+<p>
+	<label for="addressbook_group_department_id"><%=h print_words('department').capitalize %></label>
+	<%= select "addressbook_group", "department_id", @departments.unshift(['*','']) %>
+</p>
+</div>
+
+<p style="width: 100%">
+<label><%= print_words('member').capitalize_words %></label><br />
+  <div style="float: left">
+    <div style="min-height: 24px; vertical-align: bottom;">
+      Selected member:
+    </div><br />
+    <div style="width: 200px; max-height: 200px; overflow: hidden;" id="group_member_selects_<%= addressbook_group_id %>">
+    </div>
+  </div>
+  <div style="float: left; margin-left: 10px; width: 400px">
+    <div style="min-height: 24px;">
+  <%= print_words('privacy').capitalize_words %>: <%= select_tag 'privacy', options_for_select(@privacies.dup.unshift(['',''])), :include_blank => true, :id => "filter_public_#{addressbook_group_id}" %>
+  <%= print_words('department').capitalize_words %>: <%= select_tag 'department', options_for_select( @departments ), :id => "filter_department_id_#{addressbook_group_id}" %><br />
+    </div><br />
+    <div style="width: 200px; max-height: 200px; overflow: hidden;" id="group_contact_results_<%= addressbook_group_id %>">
+    </div>
+  </div>
+
+  <br style="clear:both" />
+</span>
+
+</p>
+
+<script type="text/javascript">
+//<![CDATA[
+window.toggle_field_for_department = function (value, addressbook_group_id) {
+  if (value == 'true' || value == '1') {
+    $('field_for_department_' + addressbook_group_id).show();
+  } else {
+    $('field_for_department_' + addressbook_group_id).hide();
+  }
+}
+
+toggle_field_for_department($('addressbook_group_public_<%= addressbook_group_id %>').value, <%= addressbook_group_id %>)
+
+window.update_contact_results = function(addressbook_group_id) {
+  contact_result = $('group_contact_results_' + addressbook_group_id)
+  filter_public_val = $('filter_public_' + addressbook_group_id).value;
+  filter_department_id_val = $('filter_department_id_' + addressbook_group_id).value;
+  
+  new Ajax.Request(<%= url_for(:action => 'update_contact_result').to_json %>,
+    {
+      parameters: $H({public: filter_public_val, department_id: filter_department_id_val}),
+      onSuccess: function(transport) {
+        contact_result.update('');
+        transport.responseJSON.each(function(contact) {
+          html  = '<a href="#" onclick="add_contact(this,' + contact[0] + ',\'' + contact[1] + '\',' + addressbook_group_id + '); return false;">';
+          html += contact[2] + ' ' + '(' + contact[1] + ': ' + contact[3] + ')';
+          html += '</a><br />';
+          
+          if (typeof console != 'undefined')
+            console.log(html);
+            
+          contact_result.insert(html);
+        });
+      }
+    }
+  )
+}
+
+window.add_contact = function(title_href, contact_id, field_id, addressbook_group_id) {
+  
+  member_result = $('group_member_selects_' + addressbook_group_id);
+  
+  title_member = ( (typeof title_href == 'string') ? title_href : title_href.innerHTML );
+  
+  // form = $('addressbook_group_form_' + addressbook_group_id); 
+  elem_id = 'group_' + addressbook_group_id + '_contact_' + contact_id + '_' + field_id;
+  if ($(elem_id)) {
+    $(elem_id).highlight();
+  } else {
+
+    html  = '<a href="#" onclick="del_contact(this); return false;" id="' + elem_id + '">' + title_member;
+    html += '<input type="hidden" name="member_contacts[]" value="' + contact_id + ',' + field_id + '">';
+    html += '</a><br />';
+    
+    if (typeof console != 'undefined')
+      console.log(html);
+      
+    member_result.insert(html);
+  } 
+}
+
+window.del_contact = function(title_href) {
+  Effect.Fade( title_href, { duration: 0.7,
+    afterFinish: function(effect) {
+      title_href.next('br').remove()
+      title_href.remove()
+    }
+  });
+}
+
+<%
+contacts = []
+@addressbook_group.addressbook_group_phones.each { |group_phone|
+  contacts << [group_phone.addressbook_contact.id, 
+    group_phone.addressbook_phone.name,
+    group_phone.addressbook_contact.display_name, 
+    group_phone.addressbook_phone.number ]
+}
+%>
+$A(<%= contacts.to_json %>).each(function(contact) {
+  if (typeof console != 'undefined')
+    console.log( contact );
+    
+  add_contact( contact[2] + ' ' + '(' + contact[1] + ': ' + contact[3] + ')', 
+    contact[0], contact[1], <%= addressbook_group_id %> );
+})
+
+//]]>
+</script>
+
+<%= observe_field "addressbook_group_public_#{addressbook_group_id}", :function => "toggle_field_for_department(value, #{addressbook_group_id.to_json})" %>
+<%= observe_field "filter_public_#{addressbook_group_id}", :function => "update_contact_results(#{addressbook_group_id.to_json})" %>
+<%= observe_field "filter_department_id_#{addressbook_group_id}", :function => "update_contact_results(#{addressbook_group_id.to_json})" %>
+
+<!--[eoform:addressbook_group]-->
+

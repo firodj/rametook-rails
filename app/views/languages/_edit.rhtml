@@ -1,0 +1,14 @@
+<td valign="top" align="center">
+<div id="language_offset_<%= @language.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="4">
+<% form_for :language, :url => {:action => 'edit', :id => @language.id}, :html => { :multipart => false } do |f| -%>
+  <%= error_messages_for 'language' %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+  <%= submit_tag print_words('edit').capitalize %>
+<% end -%>
+</td>
+<td valign="top" align="center">
+<%= print_words('cancel').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @language.id} %> 
+</td>

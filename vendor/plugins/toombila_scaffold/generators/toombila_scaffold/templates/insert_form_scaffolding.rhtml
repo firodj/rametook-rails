@@ -1,0 +1,21 @@
+<%= all_input_tags(@model_instance, @singular_name, {}) %>
+
+<% @model_instance.class.reflect_on_all_associations(:belongs_to).each do |belongs_to| -%>
+<p>
+  <label><%%= print_words('<%= belongs_to.name.to_s.humanize.downcase %>').capitalize_words %></label>
+  <%%= f.select '<%= belongs_to.primary_key_name %>', @<%= belongs_to.name.to_s.pluralize %> %>
+</p>
+<% end %>
+
+<%% 
+# Sample form for file/image upload, DB field name: image
+if @<%= singular_name %>.has_attribute?(:image) then %>
+<p>
+	<label><%%=h print_words('image').capitalize_words %></label>
+	<%%= f.file_field 'image' %><br />
+<%% if not @<%= singular_name %>.new_record? and @<%= singular_name %>.image then -%>
+  <%%= image_tag(@<%= singular_name %>.image.to_s) %><br />
+  <%%= f.check_box 'remove_image' %> <%%=h print_words('remove image').capitalize %><br />
+<%% end -%>
+</p>
+<%% end %>

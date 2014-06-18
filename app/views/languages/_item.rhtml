@@ -1,0 +1,10 @@
+<td class="offset" id="language_offset_<%= @language.id %>"><%=h offset %></td>
+<td><%= @language.plugins %></td>
+<td><%= @language.name %></td>
+<td><%= @language.value %></td>
+<td><%= @language.language %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @language.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @language.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @language) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @language.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @language) %>
+</td>

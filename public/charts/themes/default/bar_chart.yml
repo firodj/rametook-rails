@@ -1,0 +1,16 @@
+<%= chart :bar %>
+  <%=component :chart_border %>
+    left_thickness:   4
+  <%=component :draw%>   
+    components:         
+      - <%=drawing :text%>
+        transition: drop
+        delay:      0
+        duration:   0.5
+        bold:       true
+        rotation:   90
+        color:      657F5C
+        alpha:      50
+        size:       25
+        x:          65
+        y:          35

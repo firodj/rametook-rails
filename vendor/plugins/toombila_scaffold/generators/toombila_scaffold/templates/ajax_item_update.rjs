@@ -1,0 +1,37 @@
+elem_id = "<%= singular_name %>_offset_#{@<%= singular_name %>.id}"
+options = @render_options || {}
+options[:partial] ||= 'item'
+options[:locals]  = {:offset => ''}.update( options[:locals] || {})
+
+# message
+page['message'].hide
+page.replace_html "message", options[:message]
+if options[:message] then
+  page.insert_html :top, 'message', 
+    [ print_words('<%= model_name.underscore.humanize.downcase %>').capitalize_words, @<%= singular_name %>.display_name, options[:message] ].join(' ')
+  page['message'].show
+end
+
+# fade / show item
+if options[:fade] then
+  page.visual_effect :fade, "<%= singular_name %>_#{@<%= singular_name %>.id}", 
+    :afterFinish => "function() { $('<%= singular_name %>_#{@<%= singular_name %>.id}').remove(); }"
+else
+  page << %Q{txt = $("#{elem_id}").innerHTML}
+  page.replace_html "<%= singular_name %>_#{@<%= singular_name %>.id}", :partial => options[:partial], :locals => options[:locals]
+  page << %Q{$("#{elem_id}").update(txt)}
+end
+
+# highlite effect
+if options[:highlight] then
+  fx = case options[:highlight]
+    when :white
+      {:startcolor => "'#BFBFBF'", :endcolor => "'#FFFFFF'"}
+    when :red
+      {:startcolor => "'#BFBFBF'", :endcolor => "'#FF8F8F'"}
+    else
+      {}
+    end
+  
+  page.visual_effect :highlight, "<%= singular_name %>_#{@<%= singular_name %>.id}", fx
+end

@@ -1,0 +1,20 @@
+<td class="offset" id="user_offset_<%= @user.id %>"><%=h offset %></td>
+<td>
+<div style="padding-right:10px;">
+  <div style="width:60px; background:#666 url('<%= image_path(@user.userimage) %>');">
+    <%= image_tag("frame.gif" ) %>
+  </div>
+</div>
+</td>
+<td><%= @user.display_name %></td>
+<td><%= @user.email %></td>
+<td><%= @user.birthday %></td>
+<td><%= @user.department.display_name rescue '' %></td>
+<td><%= @user.last_login_at.strfindo_by_today rescue '' %></td>
+<td><%= @user.activated_at.strfindo_by_today rescue '' %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @user.id} }, :title => print_words('show').capitalize %>
+  <%= link_to print_words('addressbook'), { :controller => 'addressbook_contacts', :action => 'edit', :id => @user.business_contact_id }, :title => print_words('business').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @user.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @user) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @user.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @user) %>
+</td>

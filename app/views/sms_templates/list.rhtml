@@ -1,0 +1,52 @@
+<h1 id="title">
+<%= image_tag("/images/icon_sms_template.png", :style => "float:none;") %> 
+<%=h print_words('list').capitalize_words %> <%=h print_words('sms template').capitalize_words %>
+</h1>
+
+<% if granted_to(:create, nil) then -%>
+<div id="add_new_button">
+  <%= link_to_remote print_words('add').capitalize_words, :url => {:action => 'new', :page => params[:page]} %>
+</div>
+<% end -%>
+<div id="filter_button">
+  <%= link_to_remote print_words('filter').capitalize_words, :url => {:params => params.dup.update(:action => 'filter')} %>
+</div>
+<% if false %>
+<div id="print_button">
+  <% # link_to( print_words('print').capitalize_words, params.dup.update(:action => 'print_report') ) %>
+</div>
+<% end %>
+
+<br style="clear:both;" />
+
+<% unless @search_titles.empty? -%>
+<div class="show">
+<p><%
+@search_titles.each do |sub_title| 
+  sub_title_1 = sub_title[1].respond_to?(:display_name) ? sub_title[1].display_name : sub_title[1]
+-%>
+<label><%= print_words(sub_title[0]).capitalize_words %> :</label><span class="showvalue"><%= sub_title_1 %></span><br />
+<% end -%></p>
+</div>
+<% end -%>
+
+<table>
+<tr>
+  <th><%=h print_words('no').capitalize_words %></th>
+  <th><%=h print_words('name').capitalize_words %></th>
+  <th><%=h print_words('template').capitalize_words %></th>
+  <th><%=h print_words('manage').capitalize_words %></th>
+</tr>
+<!-- If you remove N columns from list.rhtml and _list.rhtml then put minus N on edit.rhtml's and show.rhtml's colspan-->
+<% offset = @sms_template_pages.current.offset 
+for @sms_template in @sms_templates
+  offset += 1
+%>
+<tr class="<%= cycle('odd', 'even')%>" id="sms_template_<%= @sms_template.id %>">
+<%= render :partial => 'item', :locals => {:offset => offset} %>
+</tr>
+<% end %>
+</table>
+<div id="paginator_line" class="paginator">
+<%= link_to_paginator @sms_template_pages, {:params => params}, {'class'=>'page_number'} %>
+</div>

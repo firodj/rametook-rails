@@ -1,0 +1,14 @@
+<td valign="top" align="center">
+<div id="department_offset_<%= @department.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="2" class="show">
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @department.name %></span>
+</p>
+<p>
+<label><%= print_words('parent').capitalize_words %></label><span class="showvalue"><%= @department.parent.display_name rescue '' %></span>
+</p>
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @department.id} %> 
+</td>

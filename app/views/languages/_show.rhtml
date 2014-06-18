@@ -1,0 +1,20 @@
+<td valign="top" align="center">
+<div id="language_offset_<%= @language.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="4" class="show">
+<p>
+<label><%= print_words('plugins').capitalize_words %></label><span class="showvalue"><%= @language.plugins %></span>
+</p>
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @language.name %></span>
+</p>
+<p>
+<label><%= print_words('value').capitalize_words %></label><span class="showvalue"><%= @language.value %></span>
+</p>
+<p>
+<label><%= print_words('language').capitalize_words %></label><span class="showvalue"><%= @language.language %></span>
+</p>
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @language.id} %> 
+</td>

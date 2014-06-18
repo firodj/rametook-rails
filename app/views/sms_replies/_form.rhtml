@@ -1,0 +1,49 @@
+<!--[form:sms_reply]-->
+<p>
+	<label><%=h print_words('function').capitalize_words %></label>
+<% if permit?('developer') then %>
+	<%= text_field "sms_reply", "function", 'class'=>"input-text" %>
+<% else %>
+  <span class="showvalue"><%=h @sms_reply.function %>
+<% end %>
+	
+	
+</p>
+
+<p>
+	<label><%=h print_words('action').capitalize_words %></label>
+<% if permit?('developer') then %>
+	<%= text_field "sms_reply", "action", 'class'=>"input-text" %>
+<% else %>
+  <span class="showvalue"><%=h @sms_reply.action %>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('message').capitalize_words %></label><%= text_area "sms_reply", "message", 'class'=>"input-text-area", 'rows' => 2 %>
+</p>
+
+<p>
+	<label><%=h print_words('tags').capitalize_words %></label>
+<% if permit?('developer') then %>
+	<%= text_field "sms_reply", "tags", 'class'=>"input-text" %>
+<% else %>
+  <span class="showvalue"><%=h @sms_reply.tags %></span>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('help info').capitalize_words %></label>
+<% if permit?('developer') then %>
+  <%= text_area "sms_reply", "help_info", 'class'=>"input-text-area" %>
+<% else %>
+	<span class="showvalue"><div style="white-space: pre;"><%=h @sms_reply.help_info %></div></span>
+<% end %>
+</p>
+
+<p>
+	<label><%=h print_words('active').capitalize_words %></label><%= check_box "sms_reply", "active", 'class'=>"input-checkbox" %>
+</p>
+
+<!--[eoform:sms_reply]-->
+

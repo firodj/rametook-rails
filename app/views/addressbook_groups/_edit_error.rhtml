@@ -1,0 +1,18 @@
+<% 
+  addressbook_group_id = @addressbook_group.id || 0 
+  form_id = "addressbook_group_form_#{addressbook_group_id}"
+%>
+<h1 id="title">
+	<%= image_tag("/images/icon_addressbook_group.png", :style => "float:none;") %> 
+	<%=h print_words('edit').capitalize_words %> <%=h print_words('addressbook_group').capitalize_words %>
+</h1>
+<div id="edit_form" style="padding:10px; border:1px solid #ddd;">
+<% form_for :addressbook_group , :url => {:action => 'edit', :id => @addressbook_group.id}, :html => { :multipart => false, :id => form_id } do |f| -%>
+  <div style="float:right;">
+  <%= link_to image_tag('icon_close.png')+' '+print_words('cancel').capitalize_words, :action => 'list_' + (@addressbook_group.public ? 'public' : 'private'), :page => params[:page] %>
+  </div>
+	<%= error_messages_for 'addressbook_group' %> 
+  	<%= render :partial => 'form', :locals => {:f => f, :addressbook_group_id => addressbook_group_id} %>
+  	<%= submit_tag print_words('save').capitalize %>
+<% end %>
+</div>

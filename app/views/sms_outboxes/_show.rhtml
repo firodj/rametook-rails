@@ -1,0 +1,60 @@
+<td valign="top" align="center">
+<div id="sms_outbox_offset_<%= @sms_outbox.id %>"></div>
+</td>
+
+<td style="padding:10px;" colspan="4" class="show">
+
+<p>
+<label><%= print_words('sent time').capitalize_words %></label>
+<span class="showvalue"><%= @sms_outbox.created_at.strfindo_by_today rescue '' %></span>
+</p>
+
+<p>
+<label><%= print_words('status').capitalize_words %></label>
+<span class="showvalue" id="<%= "sms_outbox_group_status_#{@sms_outbox.id}" %>"><%= @sms_outbox.status %></span>
+</p>
+
+<p>
+<label><%= print_words('receiver').capitalize_words %></label>
+<span class="showvalue">
+<table>
+  <thead><tr>
+    <th><%=h print_words('no').capitalize_words %></th>
+    <th><%=h print_words('recipient').capitalize_words %></th>
+    <th><%=h print_words('phone').capitalize_words %></th>
+    <th><%=h print_words('status').capitalize_words %></th>
+  </tr></thead>
+  <tbody>
+  
+<% offset = 0
+@sms_outbox.sms_outbox_recipients.each do |recipient|
+  offset += 1
+  phones = AddressbookPhone.search_by_number( recipient.number, :user_id => current_user.id, :country_code => '62' )
+  phone = phones.first
+  number_display = phone ? 
+    "<td><strong>#{phone.addressbook_contact.display_name}</strong></td><td>#{phone.display_number} <em>#{phone.name}</em></td>" : 
+    "<td colspan=\"2\">#{recipient.number}</td>"
+
+%>
+  <tr><td><%= offset %></td><%= number_display %><td><span id="<%= "sms_outbox_status_#{recipient.id}" %>"><%= recipient.status %></span></td></tr>
+<% end %>
+
+  </tbody>
+</table>
+
+</span>
+</p>
+
+<p>
+<label><%= print_words('message').capitalize_words %></label>
+<span class="showvalue">
+<div style="white-space: pre;"><%= @sms_outbox.message.word_wrap(40) %></div>
+</span>
+</p>
+
+
+</td>
+
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @sms_outbox.id} %> 
+</td>

@@ -1,0 +1,41 @@
+<!--[form:sms_inbox_filter]-->
+
+<p>
+  <label><%= print_words('addressbook contact').capitalize_words %></label>
+  <%= select "sms_inbox_filter", "addressbook_contact_id", @addressbook_contacts %>
+</p>
+
+<p>
+  <label><%= print_words('department').capitalize_words %></label>
+  <%= select "sms_inbox_filter", "department_id", @departments %>
+</p>
+
+<div style="border-bottom: 1px #d0d0d0 solid"></div>
+
+<p>
+  <label><%= print_words('user').capitalize_words %></label>
+  <%= select "sms_inbox_filter", "user_id", @users %>
+</p>
+
+<p>
+  <label><%= print_words('user group').capitalize_words %></label>
+  <%= select "sms_inbox_filter", "user_group_id", @groups %>
+</p>
+
+
+<% if false %>
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror -->
+<p>
+	<label><%= print_words('image') %></label>
+	<%= file_field 'sms_inbox_filter', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@sms_inbox_filter.image.to_s)
+	    # replace .image with your images column name 
+	%>
+	<input type="checkbox" name="removeimage" value="1" /><%= print_words('remove image') %>
+	<% end -%>
+</p>
+<% end %>
+<!--[eoform:sms_inbox_filter]-->
+

@@ -1,0 +1,23 @@
+<% 
+numbers_display = []
+numbers = @sms_outbox.numbers
+numbers[0,3].each { |number|
+  contact = AddressbookPhone.search_by_number( number, :user_id => current_user.id, :country_code => '62' )  
+  numbers_display << (contact.empty? ? number :
+    (numbers.size > 1 ? "<strong>#{contact.first.addressbook_contact.display_name}</strong> #{number}" : "<strong>#{contact.first.addressbook_contact.display_name}</strong><br />#{number}"))
+}
+numbers_display << "... (#{numbers.size})" if numbers.size > 3
+%>
+<td class="offset" id="sms_outbox_offset_<%= @sms_outbox.id %>"><%=h offset %></td>
+<td><%= numbers_display.join(',<br />') %></td>
+<td><%= image_tag("/images/icon-sms-open.png") %> <%= @sms_outbox.message.truncate(40) %></td>
+<td><%= @sms_outbox.created_at.strfindo_by_today rescue '' %></td>
+<td><div id="<%= "sms_outbox_group_status_#{@sms_outbox.id}" %>"><%= @sms_outbox.status %></div></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @sms_outbox.id} }, :title => print_words('show').capitalize %>
+  <% # link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @sms_outbox.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @sms_outbox) %>
+  <%= link_to_remote 'cancel', { :url => {:action => 'cancel_sending', :id => @sms_outbox.id} , :confirm => print_words('cancel sending message').capitalize } %>
+  <%= link_to_remote 'resend', { :url => {:action => 'resend_sending', :id => @sms_outbox.id} , :confirm => print_words('resend sending message').capitalize } %>
+  <%= link_to 'forward', :controller => 'sms_send', :action => 'send_from_forward', :id => @sms_outbox.id %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @sms_outbox.id }, :confirm => print_words('are you sure').capitalize, :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @sms_outbox) %>
+</td>

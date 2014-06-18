@@ -1,0 +1,22 @@
+<% form_remote_tag( :url => {:action => 'update_column'}, :html => {:method => 'post', :style => 'display: inline; padding: 0px; margin: 0px;', :id => "form_for_field_#{@column.name}"}) do %>
+
+<%= select_tag "type", options_for_select(Toombila::DesignerTable::EnumColumnTypes, @column.type), :onchange => "showAddOption(this.value,'#{@column.name}',true)" %>
+<%= javascript_tag "
+showAddOption('#{@column.type}','#{@column.name}',false);
+$('form_for_field_#{@column.name}').type.focus();
+" %>
+
+<div id="form_field_limit_<%= @column.name %>" style="display: none">
+Limit: <%= text_field_tag "limit", @column.limit, :style => 'width: 48px' %>
+</div>
+<div id="form_field_decimal_<%= @column.name %>" style="display: none">
+Precision,Scale: <%= text_field_tag "precision", @column.precision, :style => 'width: 32px' %>,<%= text_field_tag "scale", @column.scale, :style => 'width: 32px' %>
+</div>
+
+<%= submit_tag('Ok') %>
+<%= link_to_remote('Cancel', :url => {:action => 'cancel_column', :table => @table.name, :value => @column.name}) %>
+
+<%= hidden_field_tag :table, params[:table] %>
+<%= hidden_field_tag :value, params[:value] %>
+
+<% end %>

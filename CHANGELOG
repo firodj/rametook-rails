@@ -1,0 +1,53 @@
+= Rametook-Rails (GitHub)
+
+
+
+= ‎Thursday, ‎August ‎07, ‎2008, ‏‎1:39:42 PM
+
++ Diff between Rametook & Rakeyan notes:
++ -removed dir. vendor/rametook.include/phone_text_sms.rb
++ -modified dir. public (images, logo, stuff)
++ -modified dir. app/views/layout
++ -modified database (detailed notes needed)
+
+= Toombila 0.4 beta (Banga)
+* Toombila Scaffold upgrade
+* Div button removed, close icon (/toombila scaffold/templates)
+* Div button removed (/account, /setting)
+* User: +first_name, +last_name, -desplay_name
+* Department: act_as_tree, +parent
+* Migration correction
+* Fixing SignUp and Setting/Config
+* Now setting_info and print_words are using session
+* Security granted for CUD, R excluded
+* Request verification, XHR (XmlHttpRequest) or POST
+* Rake backup or backup:db or backup:app (include .svn)
+* Base Class Extended, String and Numeric, now ActiveSupport Helper
+
+= Toombila 0.3 beta (Barmawijaya) Release date September 2007
+* New wider & cleaner layout and logo
+* New documentation at online wiki
+* All features stripped down and added as separated installable generic plugins for better modularity 
+
+= Toombila 0.1.2 beta (Tarusbawa) Wed Apr 4 12:41:53 2007
+
+* Convert site language system from text based/environment's constants to database 
+
+= Toombila 0.1.1 beta (Tarusbawa) Sun Mar 27 06:41:53 2007
+
+* New roadmap (Toombila 0.2 dropped, replaced with Toombila 0.1.x + plugins)
+* Implement act_as_authentication plugin for better basic authentication
+* Implement acl_system2 plugin for roles based access
+* Update fixed "User Management" module
+* Separating current user's "My Account" from admin's "User Management"
+* Moving site settings from environment.rb to database
+* Add "Manage Setting" module 
+
+= Toombila 0.2 beta (Harisdarma) Sun Feb 26 12:08:44 2007
+
+* Groupware features (chat, forum, cms etc.) for Portal Kodya Sukabumi application 
+
+= Toombila 0.1 beta (Tarusbawa) Sun Feb 11 19:28:14 2007
+
+* First release during The 8th Asian Opensource Symposium and Codefest 
+

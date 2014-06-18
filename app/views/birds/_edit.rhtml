@@ -1,0 +1,14 @@
+<td valign="top" align="center">
+<div id="bird_offset_<%= @bird.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="8">
+<% form_for(:bird, :url => bird_url(@bird), :html => {:method => :put, :multipart => true }) do |f| -%>
+  <%= error_messages_for 'bird' %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+  <%= submit_tag print_words('save').capitalize %>
+<% end -%>
+</td>
+<td valign="top" align="center">
+<%= print_words('cancel').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @bird.id} %> 
+</td>

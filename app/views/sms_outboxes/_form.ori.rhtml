@@ -1,0 +1,32 @@
+<!--[form:sms_outbox]-->
+<p>
+	<label><%=h print_words('number').capitalize_words %></label><%= text_field "sms_outbox", "number", 'class'=>"input-text" %>
+</p>
+
+<p>
+	<label><%=h print_words('message').capitalize_words %></label><%= text_area "sms_outbox", "message", 'class'=>"input-text-area" %>
+</p>
+
+<p>
+	<label><%=h print_words('sent time').capitalize_words %></label><%= datetime_select 'sms_outbox', 'sent_time'  %>
+</p>
+
+
+
+
+<% if false %>
+<!-- Sample form for file/image upload, DB field name: image, form: new, newerror, edit, editerror -->
+<p>
+	<label><%= print_words('image') %></label>
+	<%= file_field 'sms_outbox', 'image' %><br />
+	<% if params[:id] -%>
+	<%= 
+	    image_tag(@sms_outbox.image.to_s)
+	    # replace .image with your images column name 
+	%>
+	<input type="checkbox" name="removeimage" value="1" /><%= print_words('remove image') %>
+	<% end -%>
+</p>
+<% end %>
+<!--[eoform:sms_outbox]-->
+

@@ -1,0 +1,14 @@
+<h1 id="title">
+	<%%= image_tag("/images/icon_<%= singular_name %>.png", :style => "float:none;") %> 
+	<%%=h print_words('edit').capitalize_words %> <%%=h print_words('<%= singular_name %>').capitalize_words %>
+</h1>
+<div id="edit_form" style="padding:10px; border:1px solid #ddd;">
+<%% form_for(:<%= singular_name %> , :url => <%= singular_name %>_url(@<%= singular_name %>), :html => {:method => :put, :multipart => <%= model_instance.has_attribute?(:image).inspect %> }) do |f| -%>
+  <div style="float:right;">
+  <%%= link_to image_tag('icon_close.png')+' '+print_words('cancel').capitalize_words, :action => 'list', :page => params[:page] %>
+  </div>
+	<%%= error_messages_for '<%= singular_name %>' %> 
+  	<%%= render :partial => 'form', :locals => {:f => f} %>
+  	<%%= submit_tag print_words('save').capitalize %>
+<%% end %>
+</div>

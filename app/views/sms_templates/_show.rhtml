@@ -1,0 +1,14 @@
+<td valign="top" align="center">
+<div id="sms_template_offset_<%= @sms_template.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="2" class="show">
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @sms_template.name %></span>
+</p>
+<p>
+<label><%= print_words('template').capitalize_words %></label><span class="showvalue"><%= @sms_template.template %></span>
+</p>
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @sms_template.id} %> 
+</td>

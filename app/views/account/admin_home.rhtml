@@ -1,0 +1,42 @@
+<% 
+	# app/views/adminuser/admin_home.rhtml
+	# This is a User's Dashboard
+-%>
+
+<h1><%=h print_words('welcome').capitalize_words %></h1>
+
+<p>
+	<div style="float:left; padding-right:10px;">
+		<div style="width:60px; background:#fff url('<%= image_path(current_user.userimage) %>') no-repeat;">
+			<%= image_tag("/images/frame.gif" ) %>
+		</div>
+	</div>
+	<%=h print_words('welcome').capitalize_words %> <%=h current_user.display_name %>, 
+	<%=h print_words('you are login as') %> <%=h current_user.login %>.<br />
+	<%=h print_words('you are currently using').capitalize %> <%=h setting_info('engine') %><br />
+	<%=h current_user.last_login_at %> ( <%=h current_user.last_ip %> ).
+</p>
+
+<% restrict_to 'superadmin' do %>
+<h1><%=h print_words('admin panel').capitalize_words %></h1>
+<div class="iconnav">
+<%= link_to image_tag("/images/icon_configuration.png"), :controller => "setting" %><br />
+<%= link_to print_words('configuration').capitalize_words, :controller => "setting" %>	
+</div>
+<div class="iconnav">
+<%= link_to image_tag("/images/icon_language.png"), :controller => "languages" %><br />
+<%= link_to print_words('language').capitalize_words, :controller => "languages" %>	
+</div>
+<div class="iconnav">
+<%= link_to image_tag("/images/icon_department.png"), :controller => "departments" %><br />
+<%= link_to print_words('department').capitalize_words, :controller => "departments" %>	
+</div>
+<div class="iconnav">
+<%= link_to image_tag("/images/icon_role.png"), :controller => "roles" %><br />
+<%= link_to print_words('role').capitalize_words, :controller => "roles" %>	
+</div>
+<div class="iconnav">
+<%= link_to image_tag("/images/icon_user.png"), :controller => "users" %><br />
+<%= link_to print_words('manage user').capitalize_words, :controller => "users" %>	
+</div>
+<% end %>

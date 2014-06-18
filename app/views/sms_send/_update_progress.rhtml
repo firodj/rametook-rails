@@ -1,0 +1,9 @@
+<% for sm in @short_messages do -%>
+<tr class=<%= cycle('odd','even') %>>
+<td><%= sm['check_time'].strftime("%a, %d %b %Y, %H:%M:%S") unless sm['check_time'].nil? %></td>
+<td><%= sm['service_center_time'].strftime("%a, %d %b %Y, %H:%M:%S") unless sm['service_center_time'].nil? %></td>
+<td><%=h sm['status'] %></td>
+<td><%=h sm['number'] %></td>
+<td><%=h sm['message'] %></td>
+</tr>
+<% end %>

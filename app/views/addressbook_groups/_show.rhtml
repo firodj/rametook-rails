@@ -1,0 +1,37 @@
+<td valign="top" align="center">
+<div id="addressbook_group_offset_<%= @addressbook_group.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="1" class="show">
+<p>
+<label><%= print_words('name').capitalize_words %></label><span class="showvalue"><%= @addressbook_group.name %></span>
+</p>
+<p>
+<label><%= print_words('user').capitalize_words %></label><span class="showvalue"><%= @addressbook_group.user.display_name rescue '' %></span>
+</p>
+
+<p>
+<label><%= print_words('privacy').capitalize_words %></label><span class="showvalue"><%= print_words(@addressbook_group.public ? 'public' : 'private').capitalize_words %></span>
+</p>
+
+
+<% if @addressbook_group.department then %>
+<p>
+<label><%= print_words('department').capitalize_words %></label><span class="showvalue"><%= @addressbook_group.department.display_name rescue '' %></span>
+</p>
+<% end %>
+
+<p>
+<label><%= print_words('member').capitalize_words %></label><span class="showvalue">
+<ul>
+<% @addressbook_group.addressbook_group_phones.each { |group_phone| %>
+<li><%= group_phone.addressbook_contact.display_name %> (<%= group_phone.addressbook_phone.name %>: <%= group_phone.addressbook_phone.number %>)</li>
+<% } %>
+</ul>
+</span>
+</p>
+
+
+</td>
+<td valign="top" align="center">
+<%= print_words('close').capitalize_words %> <%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @addressbook_group.id} %> 
+</td>

@@ -1,0 +1,19 @@
+<% 
+  addressbook_group_id = @addressbook_group.id || 0 
+  form_id = "addressbook_group_form_#{addressbook_group_id}"
+%>
+<div id="new_form" style="padding:10px; border:1px solid #ddd;">
+
+<% form_for :addressbook_group , :url => {:action => 'new'}, :html => { :multipart => false, :id => form_id } do |f| -%>
+<h3><%= print_words('add').capitalize_words %></h3>
+<div style="float:right;"><%= link_to_remote image_tag('icon_close.png')+' '+print_words('cancel').capitalize_words, :url => {:action => 'new_cancel'} %>
+</div>
+
+	<%= error_messages_for 'addressbook_group' %> 
+  	<%= render :partial => 'form', :locals => {:f => f, :addressbook_group_id => addressbook_group_id} %>
+	<p>
+		<input type="hidden" id="page" name="page" value="<%= params[:page] %>" />
+	</p>	
+  	<%= submit_tag print_words('save').capitalize %>
+<% end %>
+</div>

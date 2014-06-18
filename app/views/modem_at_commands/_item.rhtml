@@ -1,0 +1,11 @@
+<td class="offset" id="modem_at_command_offset_<%= @modem_at_command.id %>"><%=h offset %></td>
+<td><%= @modem_at_command.function_name %></td>
+<td><%= @modem_at_command.at_type %></td>
+<td><%= @modem_at_command.name %></td>
+<td><%= @modem_at_command.case_format %></td>
+<td><%= (@modem_at_command.format || '').truncate(50) %></td>
+<td class="offset_right">
+  <%= link_to_remote image_tag("/images/icon-show.png"), { :url => {:action => 'show', :id => @modem_at_command.id} }, :title => print_words('show').capitalize %>
+  <%= link_to_remote(image_tag("/images/icon-detail.gif"), { :url => {:action => 'edit', :id => @modem_at_command.id, :page => params[:page]} }, :title => print_words('edit').capitalize) if granted_to(:update, @modem_at_command) %>
+  <%= link_to_remote(image_tag("/images/icon-delete.gif"), { :url => { :action => 'destroy', :id => @modem_at_command.id }, :confirm => print_words('are you sure').capitalize , :method => :delete }, :title => print_words('delete').capitalize) if granted_to(:delete, @modem_at_command) %>
+</td>

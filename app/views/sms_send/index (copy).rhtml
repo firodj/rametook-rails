@@ -1,0 +1,108 @@
+<h1>
+<%= image_tag("/images/icon_sms_send.png", :style => "float:none;") %> 
+<%=h print_words('send SMS').capitalize_words %>
+</h1>
+
+<%= javascript_include_tag "sms/send" %>
+
+<% form_tag :action => 'send_to_outbox' do -%>
+<p>
+  <label><%=h print_words('receiver').capitalize_words %></label>
+
+	<div style="float: left;">
+<!--
+<% if false %>
+    <div style="min-height: 24px; vertical-align: bottom;">
+    <%= text_field_tag 'direct_number', '', :id => 'direct_number', 
+      :maxlength => 14,
+      :onchange => "corrects_numericality_of(this)",
+      :onkeyup => "corrects_numericality_of(this)" %>
+    <a href="#" onclick="add_direct(); return false;" title="add"><%= image_tag('add.png') %></a>
+    </div>
+    <br />
+<% end %>
+-->
+    <div style="min-height: 24px;">
+    <%= link_to_function print_words('clear').capitalize_words, "$('recipient_selects').update();" %> | 
+    <%= link_to_function print_words('sort').capitalize_words, "sort_contacts();" %>
+    <%= image_tag('/images/spinner/snake.gif', :style => "width: auto !important; height: auto !important; display: none;", :id => 'phone_spinner') %>
+    </div>
+    <ol id="recipient_selects">
+<% if params[:recipients] then 
+    params[:recipients].each do |number| 
+      contact = AddressbookPhone.search_by_number( number, :user_id => current_user.id ) 
+      if phone = contact.first then
+        elem_id = "phone_#{phone.id}"
+        title_member = "<strong>#{phone.addressbook_contact.display_name}</strong> #{phone.display_number} <em>#{phone.name}</em>"
+      else
+        elem_id = "phone_number_#{number}"
+        title_member = number
+      end
+%>
+      <li style="cursor: pointer;" onclick="del_contact(this); return false;" id="<%= elem_id %>">
+      <%= title_member %>
+      <input type="hidden" name="recipients[]" value="<%= number %>">
+      </li>
+<%  end
+ end %>
+    </ol>
+  </div>
+  
+  <div style="float: left; border-left: 1px #c0c0c0 solid; margin-left: 5px; padding-left: 5px; width: 400px">
+    <div style="min-height: 24px;">
+      <%= link_to_function print_words('public addressbook group').capitalize_words, "update_addressbook_results('public addressbook group')" %> | 
+      <%= link_to_function print_words('public addressbook contact').capitalize_words, "update_addressbook_results('public addressbook contact')" %>
+      <%= image_tag('/images/spinner/snake.gif', :style => "width: auto !important; height: auto !important; display: none;", :id => 'contact_spinner') %>
+      <br />
+
+<!--
+<% if false %>
+
+      <%= print_words('addressbook').capitalize_words %>: 
+      <%= select_tag 'addressbook', options_for_select(@addressbook_filters), :id => "filter_addressbook" %>
+      <br />
+      
+      <%= print_words('department').capitalize_words %>: 
+      <%= select_tag 'department', options_for_select(@departments), :id => "filter_department_id" %>  
+      <br />
+
+<% end %>
+-->
+      
+    </div>
+    <ol id="recipient_results"></ol>
+  </div>
+</p>
+
+<p>
+  <label><%=h print_words('template').capitalize_words %></label>
+  <%= select_tag 'sms_template', options_for_select(@sms_templates),
+  :id => "select_sms_template_id" %> 
+</p>
+
+<p>
+	<label style="clear: both"><%=h print_words('message').capitalize_words %></label>		
+	<%= text_area_tag "sms_send_message", params[:sms_send_message], {'rows' => 5,
+	  'maxlength' => 160 - @message_signature.size,
+	  'onkeyup' => "show_remaining(#{@message_signature.size.to_json})"
+	} %>
+	<br />
+		
+	<label><%=h print_words('signature').capitalize_words %></label>
+	<span style="width: 360px; border: 1px #c0c0c0 solid; display: block; font-family: monospace; white-space: pre"><%=h @message_signature %></span>
+	
+	<%=h print_words('character left').capitalize_words %> 
+	<span id="sms_send_length">0</span>
+</p>
+
+<p>
+  <div style="clear: both">
+  <%= submit_tag print_words('send').capitalize_words %>
+  </div>
+</p>
+<% end %>
+
+<%= javascript_tag "show_remaining(#{@message_signature.size.to_json});" %>
+<% # observe_field "filter_addressbook", :function => "update_addressbook_results()" %>
+<% # observe_field "filter_department_id", :function => "update_addressbook_results()" %>
+<%= observe_field "select_sms_template_id", :url => {:action => 'select_sms_template'}, :with => 'sms_template_id' %>

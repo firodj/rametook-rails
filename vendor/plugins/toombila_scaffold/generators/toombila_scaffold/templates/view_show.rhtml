@@ -1,0 +1,25 @@
+<td valign="top" align="center">
+<div id="<%= singular_name %>_offset_<%%= @<%= singular_name %>.id %>"></div>
+</td>
+<td style="padding:10px;" colspan="<%= model_instance.class.content_columns.size + model_instance.class.reflect_on_all_associations(:belongs_to).size %>" class="show">
+<% model_instance.class.content_columns.each do |column| -%>
+<p>
+<label><%%= print_words('<%= column.human_name.downcase %>').capitalize_words %></label>
+<span class="showvalue"><% if column.type == :text then -%>
+<div style="white-space: pre;"><%%=h @<%= singular_name %>.<%= column.name %> %></div>
+<% elsif column.name == 'image' then -%>
+<%%= image_tag(@<%= singular_name %>.image) if @<%= singular_name %>.image %>
+<% else -%>
+<%%=h @<%= singular_name %>.<%= column.name %> %>
+<% end -%></span>
+</p>
+<% end -%>
+<% model_instance.class.reflect_on_all_associations(:belongs_to).each do |belongs_to| -%>
+<p>
+<label><%%= print_words('<%= belongs_to.name.to_s.humanize.downcase %>').capitalize_words %></label><span class="showvalue"><%%=h @<%= singular_name %>.<%= belongs_to.name %>.display_name rescue '' %></span>
+</p>
+<% end -%>
+</td>
+<td valign="top" align="center">
+<%%= print_words('close').capitalize_words %> <%%= link_to_remote image_tag('icon_close.png'), :url => {:action => 'close', :id => @<%= singular_name %>.id} %> 
+</td>
